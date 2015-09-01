@@ -22,3 +22,22 @@ select,
 textarea {
     max-width: 280px;
 }
+[class*="col-"] {
+    
+  line-height: 30px !important;
+  
+}
+
+/*Style Personnel Form115*/
+.arriereplan {
+    background-image: url(../Areas/Admin/Uploads/shutterstock_redim.jpg);
+    background-size:cover;
+    background-repeat: no-repeat;
+    border-radius:inherit;
+    
+}
+
+.sansBordure {
+    border:none;
+}
+

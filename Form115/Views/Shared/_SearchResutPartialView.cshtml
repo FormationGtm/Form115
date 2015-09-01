@@ -4,7 +4,7 @@
     <h3 class="nom">@Model.Hotel.Nom</h3>
     <div class="col-sm-4">
         <p class="ville">@Model.Hotel.Villes.name</p>
-        <p class="categorie">@Model.Hotel.Categorie.Value</p>
+        <p class="categorie">@Model.Hotel.Categorie.Value*</p>
         @*@Html.ActionLink("Voir les séjours", "Details", new { id = @Model.Item4, @class="id", controller = "Hotel" })*@
         <a class="id" href="/Hotel/Details/@Model.Hotel.IdHotel">Voir les séjours</a>
     </div>

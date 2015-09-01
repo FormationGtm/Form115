@@ -57,7 +57,7 @@
 
     <div class=" form-group col-sm-3">
         <fieldset>
-            <legend>Période du séjour</legend>
+            <legend class="arriereplan">Période du séjour</legend>
             <label for="DateDepart">Date de départ autour du :</label>
             <input id="DateDepart" class="form-control" name="DateDepart" value="@DateTime.Now.Date.ToShortDateString()" />
 
@@ -76,9 +76,9 @@
                 <label>Catégorie de l'hôtel </label>
                 @foreach (var c in Model.ListeCategories)
                 {
-                    <span class="for-group  col-sm-12">
-                        <input type="checkbox" name="Categorie" value="@c.Key" class="form-inline" /> 
-                        <label for="@c.Key">@c.Value</label>
+                    <span class="form-group col-sm-10 text-nowrap">
+                        <input type="checkbox" name="Categorie" value="@c.Key" /> 
+                        <label for="@c.Key" class="">@c.Value</label>
                     </span>
                 }
             </div>
@@ -107,7 +107,7 @@
         </fieldset>
     </div>
 
-    <button type="submit" class="btn btn-default" id="SearchBtn">Rechercher</button>
+    <button type="submit" class="btn-primary btn-lg" id="SearchBtn">Rechercher</button>
 
 
 }

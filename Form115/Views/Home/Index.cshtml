@@ -2,27 +2,32 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
+@section styles{
+    <link href="~/Content/Form115.css" rel="stylesheet" />
+}
+
+<div class="jumbotron arriereplan">
     <h1 class="center-block">HERMETISTES</h1>
     <p class="lead">Bienvenue sur notre site de vente de séjours à travers le Monde</p>
-    <p><a href="~/Browse/Index" class="btn btn-primary btn-lg">Entrez donc! &raquo;</a></p>
+    <p><a href="~/Browse/Index" class="btn btn-primary btn-lg">Consulter le catalogue &raquo;</a></p>
 </div>
 
 <div class="row">
     <div class="col-md-6">
-        <h2 class="alert-success">Notre outil de Recherche</h2>
+        <h2 class="text-info">Notre outil de Recherche</h2>
         <p>
-            HERMETISTES vous proposent un large choix de voyages à travers le monde.<br /> Laissez vous guider en utilisant notre formulaire de recherche optimisé rien que pour vous.
+            HERMETISTES vous proposent un large choix de voyages à travers les cinq continents.<br /> Laissez vous guider en utilisant notre formulaire de recherche optimisé rien que pour vous.
         </p>
-        <p><a class="btn btn-default" href="~/Search/Index">Je me laisse guider &raquo;</a></p>
+        <p><a class="btn-primary btn-lg" href="~/Search/Index">Je me laisse guider &raquo;</a></p>
     </div>
     <div class="col-md-6">
-        <h2 class="alert-success">Nos offres promotionnelles</h2>
+        <h2 class="text-info">Nos offres promotionnelles</h2>
         <p>N'hésitez pas consulter régulièrement notre site afin de profiter pleinement de nos meilleures offres tarifaires.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        <p><a class="btn-primary btn-lg" href="~/Promotions/Index">Voir toutes les promotions en cours &raquo;</a></p>
     </div>
+</div>
+<div class="row">
     <div class="col-md-12">
         @Html.Action("ProchainsProduits", "Home")
     </div>
-    
 </div>

@@ -46,7 +46,7 @@ function chargerListeProduits() {
                         str += "<td style='text-align:right'>" + item.prix + "€</td>";
                     }
                     else {
-                        str += "<td style='text-align:right'><s>" + item.prix + '€</s> <span class="alert-info">' + item.prixSolde + "€</span> </td>";
+                        str += "<td style='text-align:right'><s>" + item.prix + '€</s> <span class="text-info">' + item.prixSolde + "€</span> </td>";
                     }
                     str += "<td style='text-align:right'>" + item.nb_restants + "</td>";
                     str += "</tr>";
