@@ -7,9 +7,9 @@
     #endregion
 
     internal abstract class SearchBase {
-        protected IEnumerable<Hotels> SearchResults;
+        protected IEnumerable<Produits> SearchResults;
 
-        public abstract IEnumerable<Hotels> GetResult();
+        public abstract IEnumerable<Produits> GetResult();
 
     }
 }

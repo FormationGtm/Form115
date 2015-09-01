@@ -17,15 +17,12 @@
             _nbPersonnes = nbp;
         }
 
-        public override IEnumerable<Hotels> GetResult()
+        public override IEnumerable<Produits> GetResult()
         {
             var db = new Form115Entities(); 
             return _nbPersonnes.HasValue
                 ? SearchBase.GetResult()
-                             .Where(h => db.Produits
-                                           .Where(p => ((p.NbPlaces - (p.Reservations.Count() != 0 ? p.Reservations.Sum(r => r.Quantity) : 0)) >= _nbPersonnes)) 
-                                           .Select(p => p.Sejours.IdHotel)
-                                           .Contains(h.IdHotel))
+                             .Where(p => ((p.NbPlaces - (p.Reservations.Count() != 0 ? p.Reservations.Sum(r => r.Quantity) : 0)) >= _nbPersonnes))                                            
                 : SearchBase.GetResult();
         }
     }

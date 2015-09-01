@@ -1,13 +1,14 @@
-﻿@model List<DataLayer.Models.Hotels>
+﻿@model List<Form115.Models.SearchResutPartialViewItem>
 @{
     ViewBag.Title = "Result";
 }
 
 <h2>Result</h2>
-@foreach (var hotel in Model)
+@foreach (var item in Model)
 {
     <div class="form-group-sm-4">
-        @Html.Action("PartialSearchResult", "Search", new { id = hotel.IdHotel})
+        @Html.Action("PartialSearchResult", "Search", new { srpvi = item })
+        @* id = item.Hotel.IdHotel, produits = item.Produits.Select(p => p.IdProduit).ToArray()*@
         
     </div>
 }

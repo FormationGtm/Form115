@@ -10,16 +10,16 @@
 
     internal class Search : SearchBase {
         public Search() {
-            SearchResults = new Form115Entities().Hotels;
+            SearchResults = new Form115Entities().Produits;
         }
 
 
-        public Search(IEnumerable<Hotels> result)
+        public Search(IEnumerable<Produits> result)
         {
             SearchResults = result;
         }
 
-        public override IEnumerable<Hotels> GetResult()
+        public override IEnumerable<Produits> GetResult()
         {
             return SearchResults;
         }

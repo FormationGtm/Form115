@@ -8,10 +8,30 @@
 
 
 function updateSearchResultpartialViews(data) {    
-    $.each(data, function (idx, hotel) {
-        $('#partial_view_search_result' + idx).children('h3.nom').html(hotel.nom);
-        $('#partial_view_search_result' + idx).children('p.ville').html(hotel.ville);
-        $('#partial_view_search_result' + idx).children('a.id').prop('href', '/Hotel/Details/' + hotel.id)
+    $.each(data, function (idx, obj) {
+
+        // Données de l'hotel
+        $('#partial_view_search_result' + idx).find('h3.nom').html(obj.hotel.nom);
+        $('#partial_view_search_result' + idx).find('p.ville').html(obj.hotel.ville);
+        $('#partial_view_search_result' + idx).find('p.categorie').html(obj.hotel.categorie);
+        $('#partial_view_search_result' + idx).find('a.id').prop('href', '/Hotel/Details/' + obj.hotel.id)
+
+        // Données des produits
+        var nbLignes = parseInt($('#nbProduitsAffiches').html());
+        $.each(obj.produits, function (idx_prod, produit) {
+            if (idx_prod < nbLignes) {
+                $('#partial_view_search_result' + idx).find('tr.ligne_produit_' + idx_prod).find('td.colDate').html(produit.dateDepart);
+                $('#partial_view_search_result' + idx).find('tr.ligne_produit_' + idx_prod).find('td.colDuree').html(produit.duree);
+                $('#partial_view_search_result' + idx).find('tr.ligne_produit_' + idx_prod).find('td.colPrix').html(produit.prix);
+            }
+        });
+        // on efface les lignes en trop si nécessaire
+        for (var i = obj.produits.length ; i <= nbLignes; i++) {
+            $('#partial_view_search_result' + idx).find('tr.ligne_produit_' + i).find('td.colDate').html('');
+            $('#partial_view_search_result' + idx).find('tr.ligne_produit_' + i).find('td.colDuree').html('');
+            $('#partial_view_search_result' + idx).find('tr.ligne_produit_' + i).find('td.colPrix').html('');
+        }
+            
     });
 }
 

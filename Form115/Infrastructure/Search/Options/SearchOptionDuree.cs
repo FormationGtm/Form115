@@ -20,13 +20,11 @@
             _duree = duree;
         }
 
-        public override IEnumerable<Hotels> GetResult()
+        public override IEnumerable<Produits> GetResult()
         {
             return  _duree.HasValue
                 ? SearchBase.GetResult()
-                            .Where(x => x.Sejours
-                                         .Where(s => Math.Abs((decimal)(s.Duree - _duree)) <= 2)
-                                         .Any())
+                            .Where(p => Math.Abs((decimal)(p.Sejours.Duree - _duree)) <= 2)
                 : SearchBase.GetResult();
         }
     }

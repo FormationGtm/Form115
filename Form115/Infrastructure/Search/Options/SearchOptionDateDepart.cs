@@ -18,15 +18,11 @@
                 _dateDepart = dateDepart;
         }
 
-        public override IEnumerable<Hotels> GetResult()
+        public override IEnumerable<Produits> GetResult()
         {
             return SearchBase.GetResult()
-                            .Where(x => x.Sejours
-                                          .Where(s => s.Produits
-                                                        .Where(p => Math.Abs((p.DateDepart - _dateDepart).TotalDays) <= 10
-                                                                        && p.DateDepart.CompareTo(DateTime.Now) >= 0).Any())
-                                          .Any())
-                                          .Distinct();
+                            .Where(p => Math.Abs((p.DateDepart - _dateDepart).TotalDays) <= 10
+                                                                        && p.DateDepart.CompareTo(DateTime.Now) >= 0);
         }
     }
 }

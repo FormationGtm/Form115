@@ -37,7 +37,7 @@
                 @item.DateFin.ToString("dd-MM-yy")
             </td>
             <td class="alert-info btn-info">
-                <a href="~/Hotel/Details/@item.IdHotel">
+                <a href="~/Hotel/Details/@item.IdHotel/@item.DateDebut.ToString("yyyy-MM-dd")/@item.DateFin.ToString("yyyy-MM-dd")">
                     @item.Valeur%
                 </a>
             </td>

@@ -77,7 +77,7 @@
                 @foreach (var c in Model.ListeCategories)
                 {
                     <span class="for-group  col-sm-12">
-                        <input type="checkbox" name="Categorie" value="@c.Value" id="@c.Key" class="form-inline" />
+                        <input type="checkbox" name="Categorie" value="@c.Key" class="form-inline" /> 
                         <label for="@c.Key">@c.Value</label>
                     </span>
                 }

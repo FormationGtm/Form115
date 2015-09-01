@@ -51,7 +51,7 @@ namespace Form115.Controllers
             Form115Entities db = new Form115Entities();
             var prods = db.Produits.Where(p => p.Sejours.IdHotel == hvm.IdHotel)
                             .Where(p=>p.Sejours.Duree >= hvm.DureeMinSejour) ; 
-            // TODO decorators, à voir avec ceux existant pour adapter
+            // TODO Attention aux filtres concurents pour le dateDebut
             if (hvm.DureeMaxSejour != null) {
                 prods = prods.Where(p=>p.Sejours.Duree<=hvm.DureeMaxSejour) ;         
             }
@@ -67,11 +67,13 @@ namespace Form115.Controllers
                 prods = prods.Where(p => p.DateDepart <= hvm._dateFin);
             //}
 
+            // HACK AsEnumerable avant le select ? Sinon ATTENTION, le nb_restants ne sera
+            // pas à jour pour les prouits n'ayant pas de réservation, nécessite opérateur ternaire poutr jointure externe
             var result = prods.AsEnumerable().Select(p => new {
                                 date = p.DateDepart.ToString("dd/MM/yyyy"), 
                                 duree = p.Sejours.Duree,
                                 prix = p.Prix, 
-                                promotions = p.Promotions,
+                                promotions = p.Promotion,
                                 prixSolde = p.PrixSolde,
                                 nb_restants = p.NbPlaces - p.Reservations.Sum(r => r.Quantity)
                             });
