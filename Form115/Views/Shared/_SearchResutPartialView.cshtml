@@ -1,6 +1,38 @@
-﻿@model DataLayer.Models.Hotels
+﻿@model Form115.Models.SearchResutPartialViewItem
 
-<h3 class="nom">@Model.Nom</h3>
-<p class="ville">@Model.Villes.name</p>
-@*@Html.ActionLink("Voir les séjours", "Details", new { id = @Model.Item4, @class="id", controller = "Hotel" })*@
-<a class="id" href="/Hotel/Details/@Model.IdHotel">Voir les séjours</a>
+<div class="col-sm-12">
+    <h3 class="nom">@Model.Hotel.Nom</h3>
+    <div class="col-sm-4">
+        <p class="ville">@Model.Hotel.Villes.name</p>
+        <p class="categorie">@Model.Hotel.Categorie.Value</p>
+        @*@Html.ActionLink("Voir les séjours", "Details", new { id = @Model.Item4, @class="id", controller = "Hotel" })*@
+        <a class="id" href="/Hotel/Details/@Model.Hotel.IdHotel">Voir les séjours</a>
+    </div>
+    <div class="col-sm-8">
+        <h4>Meilleures offres</h4>
+        @{
+            int nbProduitsAffiches = 3;
+            var topProduits = Model.Produits.OrderBy(p => p.Promotion == 0 ? p.Prix : p.PrixSolde).Take(nbProduitsAffiches);
+            int cpt = 0;
+            <p hidden id="nbProduitsAffiches">@nbProduitsAffiches</p>
+            <table class="table table-striped table-condensed">
+                <tbody>
+
+                    @foreach (var produit in topProduits)
+                    {
+                        <text>
+                            <tr class="@String.Format("ligne_produit_{0}",cpt)">
+                                <td class="colDate">@produit.DateDepart.ToString("dd/MM/yyyy")</td>
+                                <td class="colDuree">@String.Format("{0}j", produit.Sejours.Duree)</td>
+                                <td class="colPrix">
+                                    @{var prixCourant = produit.Promotion == 0 ? produit.Prix : produit.PrixSolde;
+                                    <text>@String.Format("{0}€", prixCourant)</text>}
+                                </td>
+                            </tr></text>
+                        cpt++;
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>

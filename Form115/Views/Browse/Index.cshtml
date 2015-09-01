@@ -20,11 +20,11 @@
 </ul>
 @{
     int cpt = 0;
-    foreach (var hotel in ViewBag.BestHotels)
+    foreach (var item in ViewBag.BestHotels)
     {
         <text><div class="partial_view_search_result sm-4" id="@String.Format("partial_view_search_result{0}",cpt)">
 
-    @Html.Action("PartialSearchResult", "Search", new {id = hotel.IdHotel });
+    @Html.Action("PartialSearchResult", "Search", new {srpvi = item });
 </div></text>
         cpt++;
     }

@@ -27,28 +27,28 @@ namespace Form115.Infrastructure.Search.Options
                 _idVille = idVille;
         }
 
-        public override IEnumerable<Hotels> GetResult()
+        public override IEnumerable<Produits> GetResult()
         {            
             var db = new Form115Entities();
 
             if (_idVille != 0)
             {
-                return SearchBase.GetResult().Where(h => h.IdVille == _idVille);
+                return SearchBase.GetResult().Where(p => p.Sejours.Hotels.Villes.idVille == _idVille);
             }
             else if (_idPays != null && _idPays != "0")
             {
                 return SearchBase.GetResult()
-                                .Where(h => h.Villes.CodeIso3 == _idPays);
+                                .Where(p => p.Sejours.Hotels.Villes.Pays.CodeIso3 == _idPays);
             }
             else if (_idRegion != 0)
             {
                 return SearchBase.GetResult()
-                                .Where(h => h.Villes.Pays.idRegion == _idRegion);
+                                .Where(p => p.Sejours.Hotels.Villes.Pays.Regions.idRegion == _idRegion);
             }
             else if (_idContinent != 0)
             {
                 return SearchBase.GetResult()
-                                .Where(h => h.Villes.Pays.Regions.idContinent == _idContinent);
+                                .Where(p => p.Sejours.Hotels.Villes.Pays.Regions.Continents.idContinent == _idContinent);
             }
             else
             {

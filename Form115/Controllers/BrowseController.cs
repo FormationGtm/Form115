@@ -13,21 +13,26 @@ namespace Form115.Controllers
 {
     public class BrowseController : Controller
     {
-        private readonly Form115Entities _db = new Form115Entities();
+        private Form115Entities _db = new Form115Entities();
+
         // GET: Browse
         public ActionResult Index()
         {
-            var svm = new BrowseViewModel();
+            var bvm = new BrowseViewModel();
 
-            svm.ListeContinents = _db.Continents.Where( c => _db.Hotels
+            ViewBag.BestHotels = SearchController.GetSearchResult(bvm).OrderByDescending(o => o.Hotel.NbReservations).Take(2).ToList();
+                        
+            return View(bvm);
+        }
+
+        public static Dictionary<int, string> GetListeContinents()
+        {
+            Form115Entities db = new Form115Entities();
+            return db.Continents.Where( c => db.Hotels
                                                                 .Select(h => h.Villes.Pays.Regions.idContinent)
                                                                 .Contains(c.idContinent))
                                                 .Select(c => new { Key = c.idContinent, Value = c.name })
                                                 .ToDictionary(x => x.Key, x => x.Value);
-            SearchBase s = new Search();
-            ViewBag.BestHotels = (new SearchOptionBestSort(s)).GetResult().Take(2).ToList();
-            
-            return View(svm);
         }
         
         public JsonResult GetJsonRegions(int id)
@@ -63,13 +68,40 @@ namespace Form115.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-     
-        public JsonResult GetJsonBestHotels(int continent, int region, string pays, int ville){
-            SearchBase s = new Search();
-            s = new SearchOptionDestination(s, continent, region, pays, ville);
-           
 
-            return Json((new SearchOptionBestSort(s)).GetResult().Select(h => new { nom = h.Nom, ville = h.Villes.name.Trim(), photo = h.Photo, id = h.IdHotel }).Take(2).ToList(), JsonRequestBehavior.AllowGet);
+        public JsonResult GetJsonBestHotels(int continent, int region, string pays, int ville)
+        {
+            var bvm = new BrowseViewModel
+                {
+                    Continent = continent,
+                    Region = region,
+                    Pays = pays,
+                    Ville = ville
+                };
+
+           
+            // TODO change to SearchResutPartialViewItem serializé ??
+            return Json(SearchController.GetSearchResult(bvm)
+                                        .OrderByDescending(o => o.Hotel.NbReservations)
+                                        .Select(o => new
+                                                     {
+                                                         hotel =  new {
+                                                                           nom = o.Hotel.Nom,
+                                                                           ville = o.Hotel.Villes.name.Trim(),
+                                                                           categorie = o.Hotel.Categorie.Value,
+                                                                           photo = o.Hotel.Photo,
+                                                                           id = o.Hotel.IdHotel
+                                                                      },
+                                                         produits = o.Produits
+                                                                      .Select(p => new {
+                                                                                            dateDepart = p.DateDepart.ToString("dd/MM/yyyy"),
+                                                                                            prix = p.Promotion == 0 ? p.Prix : p.PrixSolde,
+                                                                                            duree = p.Sejours.Duree
+                                                                                        })
+                                                                      .OrderBy(op => op.prix)
+                                                     }
+                                               )
+                                        .Take(2).ToList(), JsonRequestBehavior.AllowGet);
 
         }
     }

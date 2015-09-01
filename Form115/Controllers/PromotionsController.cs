@@ -17,13 +17,16 @@ namespace Form115.Controllers
         // GET: Promotions
         public ActionResult Index()
         {
+            // TODO appliquer un filtre  sur les produits et groupé par Promotion
             var promotions = db.Promotions
-                .Where(r => r.Hotels.Sejours
-                    .Where(s => s.Produits
-                     .Where(p => p.DateDepart <= r.DateFin && p.DateDepart >= r.DateDebut && p.DateDepart > DateTime.Now)
-                     .Any())
-                     .Any())
-                     .OrderByDescending(x => x.Valeur);
+                               .Where(r => r.Hotels.Sejours
+                                                    .Where(s => s.Produits
+                                                                 .Where(p => p.DateDepart <= r.DateFin &&
+                                                                                p.DateDepart >= r.DateDebut &&
+                                                                                p.DateDepart > DateTime.Now)
+                                                                 .Any())
+                                                    .Any())
+                               .OrderByDescending(x => x.Valeur);
             return View(promotions.ToList());
         }
 
