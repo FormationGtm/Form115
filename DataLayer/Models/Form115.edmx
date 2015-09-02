@@ -73,6 +73,18 @@
           <Property Name="IdCategorie" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
+        <EntityType Name="Commentaires">
+          <Key>
+            <PropertyRef Name="IdCommentaire" />
+          </Key>
+          <Property Name="IdCommentaire" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Titre" Type="nvarchar" MaxLength="60" />
+          <Property Name="Commentaire" Type="ntext" Nullable="false" />
+          <Property Name="DateCommentaire" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="IdHotel" Type="int" Nullable="false" />
+          <Property Name="IdUtilisateur" Type="int" Nullable="false" />
+          <Property Name="IdCommentaireReference" Type="int" />
+        </EntityType>
         <EntityType Name="Continents">
           <Key>
             <PropertyRef Name="idContinent" />
@@ -183,6 +195,42 @@
           <Property Name="population" Type="int" Nullable="false" />
           <Property Name="isCapital" Type="smallint" Nullable="false" />
         </EntityType>
+        <Association Name="fk_Commentaires_Commentaires">
+          <End Role="Commentaires" Type="Self.Commentaires" Multiplicity="0..1" />
+          <End Role="Commentaires1" Type="Self.Commentaires" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Commentaires">
+              <PropertyRef Name="IdCommentaire" />
+            </Principal>
+            <Dependent Role="Commentaires1">
+              <PropertyRef Name="IdCommentaireReference" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Commentaires_Hotels">
+          <End Role="Hotels" Type="Self.Hotels" Multiplicity="1" />
+          <End Role="Commentaires" Type="Self.Commentaires" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hotels">
+              <PropertyRef Name="IdHotel" />
+            </Principal>
+            <Dependent Role="Commentaires">
+              <PropertyRef Name="IdHotel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Commentaires_Utilisateurs">
+          <End Role="Utilisateurs" Type="Self.Utilisateurs" Multiplicity="1" />
+          <End Role="Commentaires" Type="Self.Commentaires" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utilisateurs">
+              <PropertyRef Name="IdUtilisateur" />
+            </Principal>
+            <Dependent Role="Commentaires">
+              <PropertyRef Name="IdUtilisateur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -391,6 +439,7 @@
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Commentaires" EntityType="Self.Commentaires" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Continents" EntityType="Self.Continents" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Hotels" EntityType="Self.Hotels" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HotelTracking" EntityType="Self.HotelTracking" Schema="dbo" store:Type="Tables" />
@@ -402,6 +451,18 @@
           <EntitySet Name="Sejours" EntityType="Self.Sejours" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Utilisateurs" EntityType="Self.Utilisateurs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Villes" EntityType="Self.Villes" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_Commentaires_Commentaires" Association="Self.fk_Commentaires_Commentaires">
+            <End Role="Commentaires" EntitySet="Commentaires" />
+            <End Role="Commentaires1" EntitySet="Commentaires" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Commentaires_Hotels" Association="Self.fk_Commentaires_Hotels">
+            <End Role="Hotels" EntitySet="Hotels" />
+            <End Role="Commentaires" EntitySet="Commentaires" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Commentaires_Utilisateurs" Association="Self.fk_Commentaires_Utilisateurs">
+            <End Role="Utilisateurs" EntitySet="Utilisateurs" />
+            <End Role="Commentaires" EntitySet="Commentaires" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -502,6 +563,7 @@
           <NavigationProperty Name="Villes" Relationship="Self.Hotels_Villes_fk" FromRole="Hotels" ToRole="Villes" />
           <NavigationProperty Name="Promotions" Relationship="Form115Model.Promotion_Hotel_fk" FromRole="Hotels" ToRole="Promotions" />
           <NavigationProperty Name="HotelTracking" Relationship="Form115Model.fk_HotelTracking_Hotels" FromRole="Hotels" ToRole="HotelTracking" />
+          <NavigationProperty Name="Commentaires" Relationship="Form115Model.fk_Commentaires_Hotels" FromRole="Hotels" ToRole="Commentaires" />
         </EntityType>
         <EntityType Name="Pays">
           <Key>
@@ -577,6 +639,7 @@
           <NavigationProperty Name="Reservations" Relationship="Self.Reservations_Utilisateurs_fk" FromRole="Utilisateurs" ToRole="Reservations" />
           <Property Name="IdAspNetUsers" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUsers" Relationship="Form115Model.Utilisateurs_Users_fk" FromRole="Utilisateurs" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Commentaires" Relationship="Form115Model.fk_Commentaires_Utilisateurs" FromRole="Utilisateurs" ToRole="Commentaires" />
         </EntityType>
         <EntityType Name="Villes">
           <Key>
@@ -777,6 +840,19 @@
             <End Role="Hotels" EntitySet="Hotels" />
             <End Role="HotelTracking" EntitySet="HotelTracking" />
           </AssociationSet>
+          <EntitySet Name="Commentaires" EntityType="Form115Model.Commentaires" />
+          <AssociationSet Name="fk_Commentaires_Commentaires" Association="Form115Model.fk_Commentaires_Commentaires">
+            <End Role="Commentaires" EntitySet="Commentaires" />
+            <End Role="Commentaires1" EntitySet="Commentaires" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Commentaires_Hotels" Association="Form115Model.fk_Commentaires_Hotels">
+            <End Role="Hotels" EntitySet="Hotels" />
+            <End Role="Commentaires" EntitySet="Commentaires" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Commentaires_Utilisateurs" Association="Form115Model.fk_Commentaires_Utilisateurs">
+            <End Role="Utilisateurs" EntitySet="Utilisateurs" />
+            <End Role="Commentaires" EntitySet="Commentaires" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
@@ -923,6 +999,58 @@
             </Principal>
             <Dependent Role="HotelTracking">
               <PropertyRef Name="IdHotel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Commentaires">
+          <Key>
+            <PropertyRef Name="IdCommentaire" />
+          </Key>
+          <Property Name="IdCommentaire" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Titre" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="Commentaire" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateCommentaire" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="IdHotel" Type="Int32" Nullable="false" />
+          <Property Name="IdUtilisateur" Type="Int32" Nullable="false" />
+          <Property Name="IdCommentaireReference" Type="Int32" />
+          <NavigationProperty Name="Commentaires1" Relationship="Form115Model.fk_Commentaires_Commentaires" FromRole="Commentaires" ToRole="Commentaires1" />
+          <NavigationProperty Name="Commentaires2" Relationship="Form115Model.fk_Commentaires_Commentaires" FromRole="Commentaires1" ToRole="Commentaires" />
+          <NavigationProperty Name="Hotels" Relationship="Form115Model.fk_Commentaires_Hotels" FromRole="Commentaires" ToRole="Hotels" />
+          <NavigationProperty Name="Utilisateurs" Relationship="Form115Model.fk_Commentaires_Utilisateurs" FromRole="Commentaires" ToRole="Utilisateurs" />
+        </EntityType>
+        <Association Name="fk_Commentaires_Commentaires">
+          <End Type="Form115Model.Commentaires" Role="Commentaires" Multiplicity="0..1" />
+          <End Type="Form115Model.Commentaires" Role="Commentaires1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Commentaires">
+              <PropertyRef Name="IdCommentaire" />
+            </Principal>
+            <Dependent Role="Commentaires1">
+              <PropertyRef Name="IdCommentaireReference" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Commentaires_Hotels">
+          <End Type="Form115Model.Hotels" Role="Hotels" Multiplicity="1" />
+          <End Type="Form115Model.Commentaires" Role="Commentaires" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hotels">
+              <PropertyRef Name="IdHotel" />
+            </Principal>
+            <Dependent Role="Commentaires">
+              <PropertyRef Name="IdHotel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Commentaires_Utilisateurs">
+          <End Type="Form115Model.Utilisateurs" Role="Utilisateurs" Multiplicity="1" />
+          <End Type="Form115Model.Commentaires" Role="Commentaires" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utilisateurs">
+              <PropertyRef Name="IdUtilisateur" />
+            </Principal>
+            <Dependent Role="Commentaires">
+              <PropertyRef Name="IdUtilisateur" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1121,6 +1249,19 @@
                 <ScalarProperty Name="IdHotel" ColumnName="IdHotel" />
                 <ScalarProperty Name="DateHT" ColumnName="DateHT" />
                 <ScalarProperty Name="IdHotelTracking" ColumnName="IdHotelTracking" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Commentaires">
+            <EntityTypeMapping TypeName="Form115Model.Commentaires">
+              <MappingFragment StoreEntitySet="Commentaires">
+                <ScalarProperty Name="IdCommentaireReference" ColumnName="IdCommentaireReference" />
+                <ScalarProperty Name="IdUtilisateur" ColumnName="IdUtilisateur" />
+                <ScalarProperty Name="IdHotel" ColumnName="IdHotel" />
+                <ScalarProperty Name="DateCommentaire" ColumnName="DateCommentaire" />
+                <ScalarProperty Name="Commentaire" ColumnName="Commentaire" />
+                <ScalarProperty Name="Titre" ColumnName="Titre" />
+                <ScalarProperty Name="IdCommentaire" ColumnName="IdCommentaire" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -37,6 +37,10 @@
         <AssociationConnector Association="Form115Model.Promotion_Hotel_fk" />
         <EntityTypeShape EntityType="Form115Model.HotelTracking" Width="1.5" PointX="12" PointY="2.25" />
         <AssociationConnector Association="Form115Model.fk_HotelTracking_Hotels" />
+        <EntityTypeShape EntityType="Form115Model.Commentaires" Width="1.5" PointX="16.5" PointY="5.5" />
+        <AssociationConnector Association="Form115Model.fk_Commentaires_Commentaires" />
+        <AssociationConnector Association="Form115Model.fk_Commentaires_Hotels" />
+        <AssociationConnector Association="Form115Model.fk_Commentaires_Utilisateurs" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

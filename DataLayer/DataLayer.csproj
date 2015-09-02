@@ -66,6 +66,9 @@
     <Compile Include="Models\Categories.cs">
       <DependentUpon>Form115.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Commentaires.cs">
+      <DependentUpon>Form115.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Continents.cs">
       <DependentUpon>Form115.tt</DependentUpon>
     </Compile>

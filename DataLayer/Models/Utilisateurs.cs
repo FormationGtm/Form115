@@ -17,6 +17,7 @@ namespace DataLayer.Models
         public Utilisateurs()
         {
             this.Reservations = new HashSet<Reservations>();
+            this.Commentaires = new HashSet<Commentaires>();
         }
     
         public int IdUtilisateur { get; set; }
@@ -27,5 +28,6 @@ namespace DataLayer.Models
     
         public virtual ICollection<Reservations> Reservations { get; set; }
         public virtual AspNetUsers AspNetUsers { get; set; }
+        public virtual ICollection<Commentaires> Commentaires { get; set; }
     }
 }
