@@ -58,7 +58,8 @@
             @Html.ActionLink("Editer", "Edit", new { id=item.IdHotel }) |
             @Html.ActionLink("Details", "Details", new { id=item.IdHotel }) |
             @Html.ActionLink("Supprimer", "Delete", new { id = item.IdHotel }) |
-            @Html.ActionLink("Ajouter une promotion", "CreerPourHotel", "Promotions", new { id = item.IdHotel }, null)
+            @Html.ActionLink("Ajouter une promotion", "CreerPourHotel", "Promotions", new { id = item.IdHotel }, null) |
+            @Html.ActionLink("Créer un séjour pour cet hôtel", "CreerSejourPourHotel", "Sejours", new { id = item.IdHotel }, null)
         </td>
     </tr>
 }

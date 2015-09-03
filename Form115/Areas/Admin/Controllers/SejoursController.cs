@@ -44,6 +44,18 @@ namespace Form115.Areas.Admin.Controllers
             return View();
         }
 
+        public ActionResult CreerSejourPourHotel(int id)
+        {
+            ViewBag.IdHotel = new SelectList(db.Hotels, "IdHotel","Nom");
+            Sejours h = new Sejours
+            {
+                IdHotel = id
+                
+            };
+            ViewBag.Hotel = id;
+            return View("Create");
+        }
+
         // POST: Admin/Sejours/Create
         // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.

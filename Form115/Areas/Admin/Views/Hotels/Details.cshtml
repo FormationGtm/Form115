@@ -47,7 +47,7 @@
         <dd>
             @Html.DisplayFor(model => model.Photo)
         </dd>
-               
+
         <dt>
             Ville
         </dt>
@@ -61,5 +61,5 @@
 <p>
     @Html.ActionLink("Edition", "Edit", new { id = Model.IdHotel }) |
     @Html.ActionLink("Retour à l'index", "Index") |
-    @Html.ActionLink("Créer un séjour pour cet hôtel", "Create", "Sejours",null, new { id = Model.Nom })
+    @Html.ActionLink("Créer un séjour pour cet hôtel", "CreerSejourPourHotel", "Sejours", new { id = Model.IdHotel }, null)
 </p>

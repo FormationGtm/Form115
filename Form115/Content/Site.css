@@ -22,28 +22,41 @@ select,
 textarea {
     max-width: 280px;
 }
+
 [class*="col-"] {
+    line-height: 30px !important;
     
-  line-height: 30px !important;
-  
 }
 
 /*Style Personnel Form115*/
 .arriereplan {
     background-image: url(../Areas/Admin/Uploads/shutterstock_redim.jpg);
-    background-size:cover;
+    background-size: cover;
     background-repeat: no-repeat;
-    border-radius:inherit;
-    
+    border-radius: inherit;
 }
 
 .sansBordure {
-    border:none;
+    border: none;
 }
 
 .promo_haut_droite {
-            color: red;
-            font-weight: bold;
-            padding-top: 15px;
-            display: block;
-        }
+    color: red;
+    font-weight: bold;
+    padding-top: 15px;
+    display: block;
+}
+
+.arriereplan2 {
+    background-color:#CD8F14;
+    background-attachment:fixed;
+   background-size:initial;
+   background-position:bottom;
+   position:inherit;
+   resize:none;
+    
+    
+    
+   
+  
+}
