@@ -12,17 +12,11 @@
                 <li>
                     @Html.ActionLink("Bonjour " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", id = "lienCompte" })
                 </li>
-                @{
-            var db = new Form115Entities();
-            // on se demande si l'utilisateur est déjà client
-            var nom_util = User.Identity.GetUserName();
-            var beneficieReduc1 = db.Reservations
-                                    .Where(resa => resa.Utilisateurs.AspNetUsers.Email == nom_util)
-                                    .Any();
-                }
-                @if (beneficieReduc1) {
+                @{var truc = User.Identity.GetUserId() ;
+                  var utilisateur = (new Form115Entities()).Utilisateurs.Where(u => u.IdAspNetUsers == truc).FirstOrDefault();}
+                @if (utilisateur.EstClient) {
                     <li>
-                        <span class="promo_haut_droite">Avantage fidélité : -5% sur votre prochain voyage !</span>
+                        <span class="promo_haut_droite">Avantage fidélité : -@utilisateur.getReducBase()% sur votre prochain voyage !</span>
                     </li>
                 }
                 else
