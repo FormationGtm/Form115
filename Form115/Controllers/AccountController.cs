@@ -23,7 +23,7 @@ namespace Form115.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -35,9 +35,9 @@ namespace Form115.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -121,7 +121,7 @@ namespace Form115.Controllers
             // Si un utilisateur entre des codes incorrects pendant un certain intervalle, le compte de cet utilisateur 
             // est alors verrouillé pendant une durée spécifiée. 
             // Vous pouvez configurer les paramètres de verrouillage du compte dans IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -156,8 +156,8 @@ namespace Form115.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // Pour plus d'informations sur l'activation de la confirmation du compte et la réinitialisation du mot de passe, consultez http://go.microsoft.com/fwlink/?LinkID=320771
                     // Envoyer un message électronique avec ce lien
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -173,30 +173,30 @@ namespace Form115.Controllers
             return View(model);
         }
 
-        // création des Users correspondants aux Utilisatuers en BDD
-        public async Task<ActionResult> RegisterUtilsateursFromBDD()
-        {
-            var db = new Form115Entities();
-            var list = db.Utilisateurs.Where(u => u.IdAspNetUsers == null).ToList();
-            Console.WriteLine(list.Count);
+        //// essai pour créer des Users correspondants aux Utilisatuers en BDD
+        //[AllowAnonymous]
+        //public async Task<ActionResult> RegisterUtilsateursFromBDD()
+        //{
+        //    var db = new Form115Entities();
+        //    var list = db.Utilisateurs.Where(u => u.IdAspNetUsers == null).ToList();
 
-            var pwd = "P@ssw0rd";
-            foreach (var utilisateur in list)
-            {
-                var email = String.Format("{0}.{1}@gmail.fr", utilisateur.Prenom, utilisateur.Nom);
-                var user = new ApplicationUser { UserName = email, Email = email };
-                var result = await UserManager.CreateAsync(user, pwd);
-                if (result.Succeeded)
-                {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                    result = UserManager.AddToRole(user.Id, "NormalUser");
-                    db.Utilisateurs.Find(utilisateur.IdUtilisateur).IdAspNetUsers = user.Id;
-                }
-                AddErrors(result);
-            }
-            db.SaveChanges();
-            return RedirectToAction("Index", "Home");
-        }
+        //    var pwd = "P@ssw0rd";
+        //    foreach (var utilisateur in list)
+        //    {
+        //        var email = String.Format("{0}.{1}_01@gmail.fr", utilisateur.Prenom, utilisateur.Nom);
+        //        var user = new ApplicationUser { UserName = email, Email = email };
+        //        var result = await UserManager.CreateAsync(user, pwd);
+        //        if (result.Succeeded)
+        //        {
+        //            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+        //            result = UserManager.AddToRole(user.Id, "NormalUser");
+        //            db.Utilisateurs.Find(utilisateur.IdUtilisateur).IdAspNetUsers = user.Id;
+        //        }
+        //        AddErrors(result);
+        //    }
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index", "Home");
+        //}
 
         //
         // GET: /Account/ConfirmEmail
