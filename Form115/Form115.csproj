@@ -165,6 +165,7 @@
     <Compile Include="Areas\Admin\Controllers\ProduitsController.cs" />
     <Compile Include="Areas\Admin\Controllers\PromotionsController.cs" />
     <Compile Include="Areas\Admin\Controllers\SejoursController.cs" />
+    <Compile Include="Areas\Admin\Controllers\StatController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BrowseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -238,6 +239,7 @@
     <Content Include="Areas\Admin\Views\Promotions\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Promotions\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Promotions\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_AdminStats.cshtml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\Admin\Promotion\Create.js" />
     <Content Include="Scripts\Admin\Sejours\Create.js" />
@@ -383,6 +385,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Uploads\" />
+    <Folder Include="Areas\Admin\Views\Stat\" />
     <Folder Include="Views\Continent\" />
     <Folder Include="Views\Produit\" />
   </ItemGroup>

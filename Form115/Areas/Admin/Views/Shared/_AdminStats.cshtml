@@ -1,0 +1,25 @@
+﻿@model List<Tuple<string, int>>
+
+
+@using (Html.BeginForm("Statistiques", "Stat"))
+{
+    <div class="sansBordure panel panel-info clearfix">
+        <div class=" panel-heading">
+            <h4 class="alert-info">Top 10 des sejours les plus consultés</h4>
+        </div>
+
+        <div class="panel-body">
+            
+                @foreach (var l in @Model)
+                {
+                    <div class="list-group-item">
+                        <div class=" btn-info btn-sm">@l.Item1</div>
+                        <div> @l.Item2 visite(s)</div>
+                    </div>
+                }
+
+           
+        </div>
+    </div>
+}
+
