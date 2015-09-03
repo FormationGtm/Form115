@@ -1,9 +1,7 @@
 ﻿@using DataLayer.Models
     @using Microsoft.AspNet.Identity
 
-@section styles{
-    //J'ai 'essayé de mettre du code ici mais ça n'a pas marché donc je l'ai mis dans _Layout mais je ne comprends pas pourquoi.
-}
+
     @if (Request.IsAuthenticated)
     {
         using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
