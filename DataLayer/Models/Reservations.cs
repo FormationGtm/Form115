@@ -18,6 +18,7 @@ namespace DataLayer.Models
         public int IdProduit { get; set; }
         public int Quantity { get; set; }
         public int IdUtilisateur { get; set; }
+        public Nullable<System.DateTime> DateReservation { get; set; }
     
         public virtual Produits Produits { get; set; }
         public virtual Utilisateurs Utilisateurs { get; set; }

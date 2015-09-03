@@ -165,6 +165,7 @@
           <Property Name="IdProduit" Type="int" Nullable="false" />
           <Property Name="Quantity" Type="int" Nullable="false" />
           <Property Name="IdUtilisateur" Type="int" Nullable="false" />
+          <Property Name="DateReservation" Type="datetime2" Precision="7" />
         </EntityType>
         <EntityType Name="Sejours">
           <Key>
@@ -617,6 +618,7 @@
           <Property Name="IdUtilisateur" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Produits" Relationship="Self.fk_reservations_produits" FromRole="Reservations" ToRole="Produits" />
           <NavigationProperty Name="Utilisateurs" Relationship="Self.Reservations_Utilisateurs_fk" FromRole="Reservations" ToRole="Utilisateurs" />
+          <Property Name="DateReservation" Type="DateTime" Precision="7" />
         </EntityType>
         <EntityType Name="Sejours">
           <Key>
@@ -1130,6 +1132,7 @@
           <EntitySetMapping Name="Reservations">
             <EntityTypeMapping TypeName="Form115Model.Reservations">
               <MappingFragment StoreEntitySet="Reservations">
+                <ScalarProperty Name="DateReservation" ColumnName="DateReservation" />
                 <ScalarProperty Name="IdReservation" ColumnName="IdReservation" />
                 <ScalarProperty Name="IdProduit" ColumnName="IdProduit" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />

@@ -183,7 +183,7 @@ namespace Form115.Controllers
         //    var pwd = "P@ssw0rd";
         //    foreach (var utilisateur in list)
         //    {
-        //        var email = String.Format("{0}.{1}_01@gmail.fr", utilisateur.Prenom, utilisateur.Nom);
+        //        var email = String.Format("{0}.{1}_02@gmail.fr", utilisateur.Prenom, utilisateur.Nom);
         //        var user = new ApplicationUser { UserName = email, Email = email };
         //        var result = await UserManager.CreateAsync(user, pwd);
         //        if (result.Succeeded)
