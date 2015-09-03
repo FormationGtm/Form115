@@ -13,4 +13,7 @@
         autoclose: true,
         todayHighlight: true,
     });
+
+    var valueOption = $("#idChampCacheIdHotel").val();
+    selectionnerOption("listeDeroulanteHotels", valueOption);
 });

@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Businesslayer\Hotels.cs" />
     <Compile Include="Businesslayer\Produits.cs" />
+    <Compile Include="Businesslayer\Utilisateurs.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Models\AspNetRoles.cs">
       <DependentUpon>Form115.tt</DependentUpon>

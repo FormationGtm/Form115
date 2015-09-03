@@ -318,6 +318,7 @@
     <Content Include="Scripts\DatePicker\locales\bootstrap-datepicker.zh-CN.min.js" />
     <Content Include="Scripts\DatePicker\locales\bootstrap-datepicker.zh-TW.min.js" />
     <Content Include="Scripts\Hotel\Details.js" />
+    <Content Include="Scripts\Form115.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />

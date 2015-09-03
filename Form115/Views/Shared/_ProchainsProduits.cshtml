@@ -7,12 +7,18 @@
         <h4 class="alert-info">Dernière minute</h4>
     </div>
     <div class="panel-body">
+        <div class="col-md-12 alert-info">
+            <span class="col-md-3 alert-info">Date de départ</span>
+            <span class="col-md-3">Destination</span>
+            <span class="col-md-3">Durée du séjour</span>
+            <span class="col-md-3">Prix</span>
+        </div>
         @foreach (Produits prod in Model)
         {
             DateTime date = @prod.DateDepart;
             <a href="/Hotel/Details/@prod.Sejours.IdHotel">
                 <div class="col-md-12">
-                    <span class="col-md-3">@date.ToShortDateString()</span>
+                    <span class="col-md-3">@date.ToString("dd-MM-yyyy")</span>
                     <span class="col-md-3">@prod.Sejours.Hotels.Villes.name</span>
                     <span class="col-md-3">@prod.Sejours.Duree jours</span>
                     <span class="col-md-3">@prod.Prix euros</span>
