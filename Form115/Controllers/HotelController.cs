@@ -80,5 +80,14 @@ namespace Form115.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+        // En cours
+        //public MvcHtmlString AfficherCommentaires(List<Commentaires> commentaires, int? idCommentaire, int cpt)
+        //{
+        //    foreach (var com in commentaires.Where(c => c.IdCommentaire == idCommentaire))
+        //    {
+        //        AfficherCommentaires(commentaires, com.IdCommentaire, cpt+1);
+        //    }
+        //}
+
     }
 }
