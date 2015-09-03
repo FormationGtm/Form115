@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -25,7 +26,6 @@ textarea {
 
 [class*="col-"] {
     line-height: 30px !important;
-    
 }
 
 /*Style Personnel Form115*/
@@ -48,15 +48,11 @@ textarea {
 }
 
 .arriereplan2 {
-    background-color:#CD8F14;
-    background-attachment:fixed;
-   background-size:initial;
-   background-position:bottom;
-   position:inherit;
-   resize:none;
-    
-    
-    
-   
-  
+    background-color: #CD8F14;
+    background-position: inherit;
+    position: inherit;
+    resize: none;
+}
+.col-sm-2::after{
+    display:table-cell;
 }

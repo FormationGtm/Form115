@@ -15,6 +15,8 @@
 {
     @Html.AntiForgeryToken()
 
+    <input type="hidden" value="@ViewBag.Hotel" id="champCacheIdHotel">
+
     <div class="form-horizontal">
         <h4>Sejours</h4>
         <hr />
@@ -51,12 +53,13 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-<script>
+@*<script>
     $(function () {
         var selecteur = "#listeHotels > option[value=" +@ViewBag.Hotel +"]";
         console.log($(selecteur));
         $(selecteur).attr("selected", "selected");
     });
-</script>
-
+</script>*@
+<script src="~/Scripts/Form115.js"></script>
+<script src="~/Scripts/Admin/Sejours/Create.js"></script>
 }

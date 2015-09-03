@@ -14,6 +14,7 @@
         todayHighlight: true,
     });
 
-    var valueOption = $("#idChampCacheIdHotel").val();
+    var valueOption = $("#champCacheIdHotel").val();
     selectionnerOption("listeDeroulanteHotels", valueOption);
+   
 });

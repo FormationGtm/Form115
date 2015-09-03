@@ -13,7 +13,10 @@
         endDate: "-1d"
     });
 
+   
 });
+
+
 
 function loadHotel() {
     var s = "";
