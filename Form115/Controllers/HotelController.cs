@@ -90,5 +90,10 @@ namespace Form115.Controllers
         //    }
         //}
 
+        [Authorize]
+        public ActionResult Comment(CommentViewModel cvm)
+        {
+        }
+
     }
 }

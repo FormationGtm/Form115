@@ -2,14 +2,39 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Mvc.Html;
 
 namespace Form115.Infrastructure.Helpers
 {
     public static class CommentairesHelper
     {
+        public static void NewCommentaireDivHelper<TModel, TProperty>(this HtmlHelper<TModel> self, Expression<Func<TModel, TProperty>> expTitre, Expression<Func<TModel, TProperty>> expCommentaire)
+        {
+            // le <div> externe
+            var divTag = new TagBuilder("div");
+            divTag.AddCssClass("FormulaireCommentaire");
+            divTag.AddCssClass("form-group");
+
+            var labelTitre = self.LabelFor(expTitre);
+            var inputTitre = self.TextBoxFor(expTitre, new { @class = "form-control" });
+            var labelCommentaire = self.LabelFor(expCommentaire);
+            var inputCommentaire = self.TextAreaFor(expCommentaire, new { @class = "form-control" });
+
+            var stringButtonSubmit = "<button type=\"submit\" class=\"btn-primary btn-lg\" id=\"PostBtn\">Poster</button>";
+
+            divTag.InnerHtml = labelTitre.ToString() + inputTitre.ToString() + labelCommentaire.ToString() + inputCommentaire.ToString() + stringButtonSubmit;
+
+            using (self.BeginForm("Comment", "Hotel", FormMethod.Post, new { id = ""}))
+            {
+                self.ViewContext.Writer.Write(divTag.ToString());
+            }
+
+        }
+
         public static MvcHtmlString CommentairesDivHelper(this HtmlHelper self, List<Commentaires> commentaires, int? idCommentaire, int cpt)
         {
             // le <div> externe

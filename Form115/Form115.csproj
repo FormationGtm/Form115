@@ -190,6 +190,7 @@
     <Compile Include="Infrastructure\Search\Search.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BrowseViewModel.cs" />
+    <Compile Include="Models\CommentViewModel.cs" />
     <Compile Include="Models\HotelViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -375,6 +376,7 @@
     <Content Include="Views\Shared\_ProchainsProduits.cshtml" />
     <Content Include="Views\Shared\_BestPromo.cshtml" />
     <Content Include="Views\Promotions\Index.cshtml" />
+    <Content Include="Views\Commentaires\_CommentView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
