@@ -5,10 +5,18 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Hermetistes Voyages</title>
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @RenderSection("styles", required: false)
-
+    <style>
+        .promo_haut_droite {
+            color: red;
+            font-weight: bold;
+            padding-top: 15px;
+            display: block;
+        }
+    </style>
 
 </head>
 <body>
@@ -24,7 +32,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Accueil", "Index", "Home")</li>
+                    @*<li>@Html.ActionLink("Accueil", "Index", "Home")</li>*@
                     <li>@Html.ActionLink("Rechercher", "Index", "Search")</li>
                     <li>@Html.ActionLink("À propos de", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>

@@ -1,22 +1,45 @@
-﻿@using Microsoft.AspNet.Identity
-@if (Request.IsAuthenticated)
-{
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-    {
-    @Html.AntiForgeryToken()
+﻿@using DataLayer.Models
+    @using Microsoft.AspNet.Identity
 
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("Bonjour " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Se déconnecter</a></li>
-    </ul>
+@section styles{
+    //J'ai 'essayé de mettre du code ici mais ça n'a pas marché donc je l'ai mis dans _Layout mais je ne comprends pas pourquoi.
+}
+    @if (Request.IsAuthenticated)
+    {
+        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    @Html.ActionLink("Bonjour " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", id = "lienCompte" })
+                </li>
+                @{
+            var db = new Form115Entities();
+            // on se demande si l'utilisateur est déjà client
+            var nom_util = User.Identity.GetUserName();
+            var beneficieReduc1 = db.Reservations
+                                    .Where(resa => resa.Utilisateurs.AspNetUsers.Email == nom_util)
+                                    .Any();
+                }
+                @if (beneficieReduc1) {
+                    <li>
+                        <span class="promo_haut_droite">Avantage fidélité : -5% sur votre prochain voyage !</span>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <span class="promo_haut_droite">(Aucune promotion pour vous.)</span>                    </li>
+                }
+                <li><a href="javascript:document.getElementById('logoutForm').submit()">Se déconnecter</a></li>
+            </ul>
+        }
     }
-}
-else
-{
-    <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("S’inscrire", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Se connecter", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
-}
+    else
+    {
+        <ul class="nav navbar-nav navbar-right">
+            <li>@Html.ActionLink("S’inscrire", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+            <li>@Html.ActionLink("Se connecter", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        </ul>
+    }
