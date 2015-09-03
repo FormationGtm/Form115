@@ -8,13 +8,7 @@
 @section scripts {
     <script src="~/Scripts/DatePicker/js/bootstrap-datepicker.min.js"></script>
     @*<script src="~/Scripts/DatePicker/js/jui.js"></script>*@
-    <script>
-        $(function () {
-            var selecteur = "#listeDeroulanteHotels > option[value=" +@ViewBag.idHotelASelectionner +"]";
-            console.log($(selecteur));
-            $(selecteur).attr("selected","selected");
-        });
-    </script>
+
     <script src="~/Scripts/Admin/Promotion/Create.js"></script>
 }
 
@@ -29,6 +23,8 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
+    
+    <input type="hidden" value="@ViewBag.idHotelASelectionner" id="champCacheIdHotel">
 
     <div class="form-horizontal">
         @if (ViewBag.MessageErreur != null)
