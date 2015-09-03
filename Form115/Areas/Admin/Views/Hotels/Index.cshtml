@@ -57,7 +57,8 @@
         <td>
             @Html.ActionLink("Editer", "Edit", new { id=item.IdHotel }) |
             @Html.ActionLink("Details", "Details", new { id=item.IdHotel }) |
-            @Html.ActionLink("Supprimer", "Delete", new { id=item.IdHotel })
+            @Html.ActionLink("Supprimer", "Delete", new { id = item.IdHotel }) |
+            @Html.ActionLink("Ajouter une promotion", "CreerPourHotel", "Promotions", new { id = item.IdHotel }, null)
         </td>
     </tr>
 }
