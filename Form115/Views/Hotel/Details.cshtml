@@ -1,6 +1,7 @@
 ﻿@* @using System.Globalization*@
 @using DataLayer.Models
 @using Form115.Models
+@using Form115.Infrastructure.Helpers
 @model HotelViewModel
 
 @{Hotels hotel = (new Form115Entities()).Hotels.Where(h => h.IdHotel == Model.IdHotel).First();}
@@ -112,6 +113,4 @@
     </tbody>
 </table>
 
-<div class="Commentaires">
-    @Html.
-</div>
+@Html.CommentairesDivHelper(hotel.Commentaires.ToList(), null, 0)

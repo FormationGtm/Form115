@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Form115.Models;
+using DataLayer.Models;
 
 namespace Form115.Controllers
 {
@@ -170,6 +171,31 @@ namespace Form115.Controllers
 
             // Si nous sommes arrivés là, un échec s’est produit. Réafficher le formulaire
             return View(model);
+        }
+
+        // création des Users correspondants aux Utilisatuers en BDD
+        public async Task<ActionResult> RegisterUtilsateursFromBDD()
+        {
+            var db = new Form115Entities();
+            var list = db.Utilisateurs.Where(u => u.IdAspNetUsers == null).ToList();
+            Console.WriteLine(list.Count);
+
+            var pwd = "P@ssw0rd";
+            foreach (var utilisateur in list)
+            {
+                var email = String.Format("{0}.{1}@gmail.fr", utilisateur.Prenom, utilisateur.Nom);
+                var user = new ApplicationUser { UserName = email, Email = email };
+                var result = await UserManager.CreateAsync(user, pwd);
+                if (result.Succeeded)
+                {
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    result = UserManager.AddToRole(user.Id, "NormalUser");
+                    db.Utilisateurs.Find(utilisateur.IdUtilisateur).IdAspNetUsers = user.Id;
+                }
+                AddErrors(result);
+            }
+            db.SaveChanges();
+            return RedirectToAction("Index", "Home");
         }
 
         //

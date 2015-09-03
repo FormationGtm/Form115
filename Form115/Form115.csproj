@@ -176,7 +176,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\Filters\HotelTrackerFilterAttribute.cs" />
-    <Compile Include="Infrastructure\Helpers\CommentaireHelper.cs" />
+    <Compile Include="Infrastructure\Helpers\CommentairesHelper.cs" />
     <Compile Include="Infrastructure\Search\Base\SearchBase.cs" />
     <Compile Include="Infrastructure\Search\Base\SearchOption.cs" />
     <Compile Include="Infrastructure\Search\Options\SearchOptionBestSort.cs" />

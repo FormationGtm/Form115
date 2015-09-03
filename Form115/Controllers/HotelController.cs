@@ -81,11 +81,12 @@ namespace Form115.Controllers
         }
 
         // En cours
-        //public MvcHtmlString AfficherCommentaires(List<Commentaires> commentaires, int? idCommentaire, int cpt)
+        //public MvcHtmlString AfficherCommentaires(HtmlHelper Html, List<Commentaires> commentaires, int? idCommentaire, int cpt)
         //{
         //    foreach (var com in commentaires.Where(c => c.IdCommentaire == idCommentaire))
         //    {
-        //        AfficherCommentaires(commentaires, com.IdCommentaire, cpt+1);
+        //        Html.
+        //        AfficherCommentaires(commentaires, com.IdCommentaire, cpt + 1);
         //    }
         //}
 
