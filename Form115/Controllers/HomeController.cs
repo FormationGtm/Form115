@@ -49,7 +49,7 @@ namespace Form115.Controllers
         [ChildActionOnly]
         public PartialViewResult ProchainsProduits()
         {
-            var listeProduits = (new Form115Entities()).Produits.OrderBy(p => p.DateDepart).Take(10).ToList();
+            var listeProduits = (new Form115Entities()).Produits.Where(p=>p.DateDepart >= DateTime.Now).OrderBy(p => p.DateDepart).Take(10).ToList();
 
             return PartialView("_ProchainsProduits", listeProduits);
         }
