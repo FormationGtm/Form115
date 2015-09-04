@@ -46,7 +46,7 @@ namespace Form115.Areas.Admin.Controllers
 
         public ActionResult MiseEnVenteSejour(int id)
         {
-            ViewBag.IdSejour = new SelectList(db.Hotels, "IdSejour", "IdSejour");
+            ViewBag.Sejour = id;
          
             
             return View("Create");

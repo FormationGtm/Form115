@@ -14,9 +14,8 @@
 
 function loadSejour() {
     var s = "";
-    var mq = $("#champCacheSejour").val();
 
-    $.getJSON("/Admin/Produits/GetJSONSejour/" + mq, function (data) {
+    $.getJSON("/Admin/Produits/GetJSONSejour/", function (data) {
 
         $.each(data, function (idx, item) {
 
