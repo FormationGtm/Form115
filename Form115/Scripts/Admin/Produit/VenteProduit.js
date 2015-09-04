@@ -1,7 +1,7 @@
 ﻿$(function () {
     
-    $("#IdSejour").change(loadHotel);
-    loadHotel();
+    //$("#IdSejour").change(loadHotel);
+    //loadHotel();
 
     $('#DateDepart').datepicker({
         format: "dd/mm/yyyy",

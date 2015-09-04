@@ -18,7 +18,7 @@
             @Html.DisplayFor(model => model.Hotels.Villes.name)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Duree)
+            @Html.DisplayNameFor(model => model.Duree) (jours)
         </dt>
 
         <dd>
@@ -46,5 +46,5 @@
 <p>
     @Html.ActionLink("Edition", "Edit", new { id = Model.IdSejour }) |
     @Html.ActionLink("Retour à l'index", "Index") |
-    @Html.ActionLink("Mettre ce séjour en vente", "Create", "Produits")
+    @Html.ActionLink("Mettre ce séjour en vente", "Create", "Produits", new { id = Model.IdSejour },null)
 </p>

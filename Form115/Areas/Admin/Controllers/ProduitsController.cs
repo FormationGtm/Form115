@@ -18,7 +18,7 @@ namespace Form115.Areas.Admin.Controllers
         // GET: Admin/Produits
         public ActionResult Index()
         {
-            var produits = db.Produits.Include(p => p.Sejours);
+            var produits = db.Produits.OrderBy(p=>p.IdProduit).Include(p => p.Sejours);
             return View(produits.ToList());
         }
 
@@ -42,6 +42,14 @@ namespace Form115.Areas.Admin.Controllers
         {
             ViewBag.IdSejour = new SelectList(db.Sejours, "IdSejour", "IdSejour");
             return View();
+        }
+
+        public ActionResult MiseEnVenteSejour(int id)
+        {
+            ViewBag.IdSejour = new SelectList(db.Hotels, "IdSejour", "IdSejour");
+         
+            
+            return View("Create");
         }
 
         // POST: Admin/Produits/Create
@@ -136,7 +144,14 @@ namespace Form115.Areas.Admin.Controllers
             var db = new Form115Entities();
             var result = db.Sejours
                 .Where(d => d.IdSejour == id)
-                .Select(d => new { Hotel = d.Hotels.IdHotel,NomHotel=d.Hotels.Nom, Ville =d.Hotels.Villes.name, Pays=d.Hotels.Villes.Pays.Name}).OrderBy(x=>x.Ville).ToList();
+                .Select(d => new { Hotel = d.Hotels.IdHotel, NomHotel = d.Hotels.Nom, Ville = d.Hotels.Villes.name, Pays = d.Hotels.Villes.Pays.Name }).OrderBy(x => x.Ville).ToList();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetJSONSejour()
+        {
+            var db = new Form115Entities();
+            var result = db.Produits
+                 .Select(d => new { Sejour = d.IdSejour, NomHotel = d.Sejours.Hotels.Nom, Ville = d.Sejours.Hotels.Villes.name, Pays = d.Sejours.Hotels.Villes.Pays.Name }).ToList();
             return Json(result, JsonRequestBehavior.AllowGet);
         }
     }

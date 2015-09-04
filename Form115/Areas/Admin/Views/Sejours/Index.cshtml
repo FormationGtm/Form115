@@ -15,6 +15,9 @@
             @Html.DisplayNameFor(model => model.IdSejour)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Hotels.IdHotel)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Hotels.Nom)
         </th>
         <th>
@@ -22,7 +25,7 @@
         </th>
         
         <th>
-            @Html.DisplayNameFor(model => model.Duree)
+            @Html.DisplayNameFor(model => model.Duree) (jours)
         </th>
         
         <th></th>
@@ -32,6 +35,9 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.IdSejour)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hotels.IdHotel)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Hotels.Nom)
@@ -47,7 +53,8 @@
         <td>
             @Html.ActionLink("Editer", "Edit", new { id=item.IdSejour }) |
             @Html.ActionLink("Details", "Details", new { id=item.IdSejour }) |
-            @Html.ActionLink("Supprimer", "Delete", new { id=item.IdSejour })
+            @Html.ActionLink("Supprimer", "Delete", new { id=item.IdSejour }) |
+            @Html.ActionLink("Mettre en vente ce séjour", "MiseEnVenteSejour", "Produits", new { id = item.IdSejour }, null)
         </td>
     </tr>
 }

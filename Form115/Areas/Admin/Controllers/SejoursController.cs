@@ -18,7 +18,7 @@ namespace Form115.Areas.Admin.Controllers
         // GET: Admin/Sejours
         public ActionResult Index()
         {
-            var sejours = db.Sejours.Include(s => s.Hotels);
+            var sejours = db.Sejours.OrderBy(s=>s.IdHotel).Include(s => s.Hotels);
             return View(sejours.ToList());
         }
 
