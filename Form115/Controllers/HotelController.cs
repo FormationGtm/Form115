@@ -8,11 +8,21 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Form115.Controllers
 {
     public class HotelController : Controller
     {
+        protected ApplicationDbContext ApplicationDbContext { get; set; }
+        protected UserManager<ApplicationUser> UserManager { get; set; }
+
+        public HotelController()
+        {
+            this.ApplicationDbContext = new ApplicationDbContext();
+            this.UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(this.ApplicationDbContext));
+        }
+
         private Form115Entities _db = new Form115Entities();
 
         // GET: Hotel
@@ -97,14 +107,15 @@ namespace Form115.Controllers
         public ActionResult Comment(CommentViewModel cvm, int id)
         {
             // TODO debut : problème avec le GetUSerId ici
-            var test = User.Identity.GetUserId<int>();
-            var etst2 = Int32.Parse(User.Identity.GetUserId());
             // TODO tester mlodèle + règles métiers sur entrée utilisateurs
             // + vérifier enrigtrement BDD pour afficher éventuellement petit message
+            var user = UserManager.FindById(User.Identity.GetUserId());
             var commentaire = new Commentaires
             {
                 IdHotel = id,
-                IdUtilisateur = User.Identity.GetUserId<int>(),
+                IdUtilisateur = _db.Utilisateurs.Where(u => u.IdAspNetUsers == user.Id)
+                                                .Select(u => u.IdUtilisateur)
+                                                .FirstOrDefault(),
                 Titre = cvm.Titre,
                 Commentaire = cvm.Commentaire,
                 DateCommentaire = DateTime.Now,

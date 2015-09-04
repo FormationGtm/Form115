@@ -10,6 +10,7 @@ namespace Form115.Models
     {
         public string Titre { get; set; }
         public string Commentaire { get; set; }
+        public int? IdUtilisateur { get; set; }
 
         // Commentaire Référencé
         public int? IdCommentaire { get; set; }
