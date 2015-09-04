@@ -1,0 +1,9 @@
+﻿@model Form115.Models.CommentViewModel
+@using Form115.Infrastructure.Helpers
+
+@*@using (Html.BeginForm("Comment", "Hotel", FormMethod.Post, new { id = Model.Hotel.IdHotel }))
+{
+    @Html.NewCommentaireFormHelper(model => model.Titre, model => model.Commentaire, Model.Hotel.IdHotel, null)
+}*@
+@Html.NewCommentaireFormHelper(model => model.Titre, model => model.Commentaire, Model.Hotel.IdHotel, null)
+@Html.CommentairesDivHelper(Model.Hotel.Commentaires.ToList(), null, 0)

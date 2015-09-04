@@ -112,5 +112,5 @@
         }
     </tbody>
 </table>
-
-@Html.CommentairesDivHelper(hotel.Commentaires.ToList(), null, 0)
+@*@Html.CommentairesDivHelper(hotel.Commentaires.ToList(), null, 0)*@
+@Html.Action("PartialComment", "Hotel", new { hotel = hotel })

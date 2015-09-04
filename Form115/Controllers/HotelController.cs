@@ -7,11 +7,14 @@ using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace Form115.Controllers
 {
     public class HotelController : Controller
     {
+        private Form115Entities _db = new Form115Entities();
+
         // GET: Hotel
         public ActionResult Index()
         {
@@ -48,8 +51,7 @@ namespace Form115.Controllers
         [HttpPost]
         public JsonResult listeProduits(HotelViewModel hvm)
         {
-            Form115Entities db = new Form115Entities();
-            var prods = db.Produits.Where(p => p.Sejours.IdHotel == hvm.IdHotel)
+            var prods = _db.Produits.Where(p => p.Sejours.IdHotel == hvm.IdHotel)
                             .Where(p=>p.Sejours.Duree >= hvm.DureeMinSejour) ; 
             // TODO Attention aux filtres concurents pour le dateDebut
             if (hvm.DureeMaxSejour != null) {
@@ -90,10 +92,34 @@ namespace Form115.Controllers
         //    }
         //}
 
-        //[Authorize]
-        //public ActionResult Comment(CommentViewModel cvm)
-        //{
-        //}
+        [Authorize]
+        [HttpPost, ValidateInput(false)]
+        public ActionResult Comment(CommentViewModel cvm, int id)
+        {
+            // TODO debut : problème avec le GetUSerId ici
+            var test = User.Identity.GetUserId<int>();
+            var etst2 = Int32.Parse(User.Identity.GetUserId());
+            // TODO tester mlodèle + règles métiers sur entrée utilisateurs
+            // + vérifier enrigtrement BDD pour afficher éventuellement petit message
+            var commentaire = new Commentaires
+            {
+                IdHotel = id,
+                IdUtilisateur = User.Identity.GetUserId<int>(),
+                Titre = cvm.Titre,
+                Commentaire = cvm.Commentaire,
+                DateCommentaire = DateTime.Now,
+                IdCommentaireReference = cvm.IdCommentaire
+            };
 
+            _db.Commentaires.Add(commentaire);
+            _db.SaveChanges();
+
+            return RedirectToAction("Details", new {id = id});
+        }
+
+        public PartialViewResult PartialComment(Hotels hotel)
+        {
+            return PartialView("_CommentView", new CommentViewModel { Hotel = hotel });
+        }
     }
 }

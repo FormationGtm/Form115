@@ -12,7 +12,7 @@ namespace Form115.Infrastructure.Helpers
 {
     public static class CommentairesHelper
     {
-        public static void NewCommentaireDivHelper<TModel, TProperty>(this HtmlHelper<TModel> self, Expression<Func<TModel, TProperty>> expTitre, Expression<Func<TModel, TProperty>> expCommentaire)
+        public static MvcHtmlString NewCommentaireFormHelper<TModel, TPropertyTitre, TPropertyCommentaire>(this HtmlHelper<TModel> self, Expression<Func<TModel, TPropertyTitre>> expTitre, Expression<Func<TModel, TPropertyCommentaire>> expCommentaire, int idHotel, int? idCommentaireReference)
         {
             // le <div> externe
             var divTag = new TagBuilder("div");
@@ -24,15 +24,17 @@ namespace Form115.Infrastructure.Helpers
             var labelCommentaire = self.LabelFor(expCommentaire);
             var inputCommentaire = self.TextAreaFor(expCommentaire, new { @class = "form-control" });
 
+            var stringHiddenIdCommentaireReference = "<input type=\"hidden\" name=\"IdCommentaire\" value=\"" + idCommentaireReference + "\"/>";
+
             var stringButtonSubmit = "<button type=\"submit\" class=\"btn-primary btn-lg\" id=\"PostBtn\">Poster</button>";
 
             divTag.InnerHtml = labelTitre.ToString() + inputTitre.ToString() + labelCommentaire.ToString() + inputCommentaire.ToString() + stringButtonSubmit;
 
-            using (self.BeginForm("Comment", "Hotel", FormMethod.Post, new { id = ""}))
+            using (self.BeginForm("Comment", "Hotel", new { id = idHotel }, FormMethod.Post))
             {
                 self.ViewContext.Writer.Write(divTag.ToString());
             }
-
+            return new MvcHtmlString("");
         }
 
         public static MvcHtmlString CommentairesDivHelper(this HtmlHelper self, List<Commentaires> commentaires, int? idCommentaire, int cpt)

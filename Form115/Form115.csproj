@@ -379,13 +379,14 @@
     <Content Include="Views\Shared\_ProchainsProduits.cshtml" />
     <Content Include="Views\Shared\_BestPromo.cshtml" />
     <Content Include="Views\Promotions\Index.cshtml" />
-    <Content Include="Views\Commentaires\_CommentView.cshtml" />
+    <Content Include="Views\Shared\_CommentView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Uploads\" />
     <Folder Include="Areas\Admin\Views\Stat\" />
+    <Folder Include="Views\Commentaires\" />
     <Folder Include="Views\Continent\" />
     <Folder Include="Views\Produit\" />
   </ItemGroup>
