@@ -12,8 +12,8 @@
                 <li>
                     @Html.ActionLink("Bonjour " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", id = "lienCompte" })
                 </li>
-                @{var truc = User.Identity.GetUserId() ;
-                  var utilisateur = (new Form115Entities()).Utilisateurs.Where(u => u.IdAspNetUsers == truc).FirstOrDefault();}
+                @{var idAspNetUser = User.Identity.GetUserId() ;
+                  var utilisateur = (new Form115Entities()).Utilisateurs.Where(u => u.IdAspNetUsers == idAspNetUser).FirstOrDefault();}
                 @if (utilisateur.EstClient) {
                     <li>
                         <span class="promo_haut_droite">Avantage fidélité : -@utilisateur.getReducBase()% sur votre prochain voyage !</span>

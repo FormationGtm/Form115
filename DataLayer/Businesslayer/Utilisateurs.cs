@@ -16,7 +16,7 @@ namespace DataLayer.Models
         {
             get
             {
-                return db.Reservations.Any();
+                return Reservations.Any();
             }
         }
 
