@@ -25,14 +25,13 @@ namespace Form115.Infrastructure.Helpers
             var inputCommentaire = self.TextAreaFor(expCommentaire, new { @class = "form-control" });
 
             var stringHiddenIdCommentaireReference = "<input type=\"hidden\" name=\"IdCommentaire\" value=\"" + idCommentaireReference + "\"/>";
-            // TODO UserId !!!!
-            var stringHiddenIdUtilisateur = "<input type=\"hidden\" name=\"IdUtilisateur\" value=\"" + idCommentaireReference + "\"/>";
+          
 
             var stringButtonSubmit = "<button type=\"submit\" class=\"btn-primary btn-lg\" id=\"PostBtn\">Poster</button>";
 
-            divTag.InnerHtml = labelTitre.ToString() + inputTitre.ToString() + labelCommentaire.ToString() + inputCommentaire.ToString() + stringButtonSubmit;
+            divTag.InnerHtml = labelTitre.ToString() + inputTitre.ToString() + labelCommentaire.ToString() + inputCommentaire.ToString() + stringButtonSubmit + stringHiddenIdCommentaireReference;
 
-            using (self.BeginForm("Comment", "Hotel", new { id = idHotel }, FormMethod.Post))
+            using (self.BeginForm("Comment", "Hotel", new { id = idHotel }, FormMethod.Post, new { id = "FormulaireCommentaire" }))
             {
                 self.ViewContext.Writer.Write(divTag.ToString());
             }
@@ -99,7 +98,7 @@ namespace Form115.Infrastructure.Helpers
             var aRepondreTag = new TagBuilder("a");
             aRepondreTag.MergeAttribute("href", "#");
             aRepondreTag.AddCssClass("LienRepondre");
-            aRepondreTag.MergeAttribute("id", String.Format("commentaire-{0}",commentaire.IdCommentaire));
+            aRepondreTag.MergeAttribute("id", String.Format("Commentaire-{0}",commentaire.IdCommentaire));
             aRepondreTag.InnerHtml = "Répondre";
 
             // Contenu du divpour le lien "Répondre"

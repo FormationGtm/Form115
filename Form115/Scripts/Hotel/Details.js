@@ -12,7 +12,18 @@
 
     $("input").change(chargerListeProduits);
     chargerListeProduits();
-});
+
+    // Réponses à des commentaires : afficher un formulaire idoine
+    $("a.LienRepondre").click(function () {
+        console.log('hello');
+        var commentaireId = $(this).attr('id').split('-').pop();
+        var formulaireId = "FormulaireReponse-" + commentaireId;
+        $("#FormulaireCommentaire").clone().appendTo($(this).parent()).attr("id", formulaireId);
+        $('#' + formulaireId).find('input[name="IdCommentaire"]').attr('value', commentaireId)
+        $(this).attr('hidden','true')
+        return false;
+    });
+})
 
 function chargerListeProduits() {
     console.log("Fonction appelée.");
@@ -70,3 +81,4 @@ function loadSearchParams() {
     $("[name=DureeMinSejour]").val(DureeMin) ;
     $("[name=DureeMaxSejour]").val(DureeMax);
 }
+
