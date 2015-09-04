@@ -246,7 +246,6 @@
     <Content Include="Scripts\Admin\Produit\MiseEnVente.js" />
     <Content Include="Scripts\Admin\Promotion\Create.js" />
     <Content Include="Scripts\Admin\Sejours\CreerSejour.js" />
-    <Content Include="Scripts\Admin\Produit\VenteProduit.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Browse\Index.js" />
