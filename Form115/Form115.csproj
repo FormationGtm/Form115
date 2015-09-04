@@ -256,10 +256,8 @@
     <Content Include="Scripts\DatePicker\css\bootstrap-datepicker3.min.css" />
     <Content Include="Scripts\DatePicker\css\bootstrap-datepicker3.standalone.css" />
     <Content Include="Scripts\DatePicker\css\bootstrap-datepicker3.standalone.min.css" />
-    <Content Include="Scripts\DatePicker\css\jui.css" />
     <Content Include="Scripts\DatePicker\js\bootstrap-datepicker.js" />
     <Content Include="Scripts\DatePicker\js\bootstrap-datepicker.min.js" />
-    <Content Include="Scripts\DatePicker\js\jui.js" />
     <Content Include="Scripts\DatePicker\locales\bootstrap-datepicker.ar.min.js" />
     <Content Include="Scripts\DatePicker\locales\bootstrap-datepicker.az.min.js" />
     <Content Include="Scripts\DatePicker\locales\bootstrap-datepicker.bg.min.js" />
