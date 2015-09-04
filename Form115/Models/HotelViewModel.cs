@@ -34,6 +34,7 @@ namespace Form115.Models
             }
         }
 
+
         // Gestion de l'affichage des séjours d'un hôtel sur une période
         public DateTime _dateDebut;
         public string DateDebut

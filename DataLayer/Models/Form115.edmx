@@ -184,6 +184,7 @@
           <Property Name="Prenom" Type="nvarchar" MaxLength="60" />
           <Property Name="Telephone" Type="varchar" MaxLength="12" />
           <Property Name="IdAspNetUsers" Type="nvarchar" MaxLength="128" />
+          <Property Name="InscritLettreInfo" Type="bit" />
         </EntityType>
         <EntityType Name="Villes">
           <Key>
@@ -642,6 +643,7 @@
           <Property Name="IdAspNetUsers" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUsers" Relationship="Form115Model.Utilisateurs_Users_fk" FromRole="Utilisateurs" ToRole="AspNetUsers" />
           <NavigationProperty Name="Commentaires" Relationship="Form115Model.fk_Commentaires_Utilisateurs" FromRole="Utilisateurs" ToRole="Commentaires" />
+          <Property Name="InscritLettreInfo" Type="Boolean" />
         </EntityType>
         <EntityType Name="Villes">
           <Key>
@@ -1152,6 +1154,7 @@
           <EntitySetMapping Name="Utilisateurs">
             <EntityTypeMapping TypeName="Form115Model.Utilisateurs">
               <MappingFragment StoreEntitySet="Utilisateurs">
+                <ScalarProperty Name="InscritLettreInfo" ColumnName="InscritLettreInfo" />
                 <ScalarProperty Name="IdAspNetUsers" ColumnName="IdAspNetUsers" />
                 <ScalarProperty Name="IdUtilisateur" ColumnName="IdUtilisateur" />
                 <ScalarProperty Name="Nom" ColumnName="Nom" />
