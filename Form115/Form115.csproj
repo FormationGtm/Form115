@@ -167,13 +167,13 @@
     <Compile Include="Areas\Admin\Controllers\PublipostageController.cs" />
     <Compile Include="Areas\Admin\Controllers\SejoursController.cs" />
     <Compile Include="Areas\Admin\Controllers\StatController.cs" />
+    <Compile Include="Areas\Admin\Models\LettreInfoViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BrowseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HotelController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PromotionsController.cs" />
-    <Compile Include="Controllers\ReservationsController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -244,7 +244,7 @@
     <Content Include="Areas\Admin\Views\Promotions\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Promotions\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_AdminStats.cshtml" />
-    <Content Include="Areas\Admin\Views\Publipostage\Index.cshtml" />	
+    <Content Include="Areas\Admin\Views\Publipostage\Index.cshtml" />
     <None Include="Properties\PublishProfiles\OVH.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\Admin\Produit\MiseEnVente.js" />
@@ -384,12 +384,9 @@
     <Content Include="Views\Shared\_BestPromo.cshtml" />
     <Content Include="Views\Promotions\Index.cshtml" />
     <Content Include="Views\Shared\_CommentView.cshtml" />
-    <Content Include="Views\Reservations\Reserver.cshtml" />
-    <Content Include="Views\Reservations\ReserverImpossible.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Uploads\" />
     <Folder Include="Areas\Admin\Views\Stat\" />
     <Folder Include="Views\Commentaires\" />
