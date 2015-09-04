@@ -10,18 +10,17 @@
 
     #endregion
 
-    internal class SearchOptionDateDepart : SearchOption {
-        private readonly DateTime _dateDepart;
-
-        public SearchOptionDateDepart(SearchBase sb, DateTime dateDepart)
-            : base(sb) {
-                _dateDepart = dateDepart;
+    internal class SearchOptionAPartirDAujourdHui : SearchOption
+    {
+        public SearchOptionAPartirDAujourdHui(SearchBase sb)
+            : base(sb)
+        {
         }
 
         public override IEnumerable<Produits> GetResult()
         {
             return SearchBase.GetResult()
-                            .Where(p => Math.Abs((p.DateDepart - _dateDepart).TotalDays) <= 10);
+                             .Where(p => p.DateDepart >= DateTime.Now);
         }
     }
 }

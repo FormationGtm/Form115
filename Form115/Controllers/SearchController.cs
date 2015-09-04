@@ -63,18 +63,19 @@ namespace Form115.Controllers
 
         public static List<SearchResutPartialViewItem> GetSearchResult(BrowseViewModel bvm)
         {
-            SearchViewModel svm = new SearchViewModel(bvm);
-            return GetSearchResult(svm);
+            SearchBase s = new Search();
+            s = new SearchOptionDestination(s, bvm.Continent, bvm.Region, bvm.Pays, bvm.Ville);
+            s = new SearchOptionAPartirDAujourdHui(s);
+            return OrderingGroupResult(s);
         }
 
         public static List<SearchResutPartialViewItem> GetSearchResult(SearchViewModel svm)
         {
-            Form115Entities db = new Form115Entities();
-
             // Search et SearchOption héritent de SearchBase
             SearchBase s = new Search();
             s = new SearchOptionDestination(s, svm.Continent, svm.Region, svm.Pays, svm.Ville);
-            //s = new SearchOptionDateDepart(s, svm.DateDepart);
+            s = new SearchOptionDateDepart(s, svm.DateDepart);
+            s = new SearchOptionAPartirDAujourdHui(s);
             s = new SearchOptionDuree(s, svm.Duree);
             s = new SearchOptionNbPers(s, svm.NbPers);
             s = new SearchOptionCategorie(s, svm.Categorie);
@@ -82,15 +83,21 @@ namespace Form115.Controllers
             s = new SearchOptionPrixMin(s, svm.PrixMin);
 
             // Intégration de DateDepart > DateTime.Now ici car on n'est pas intéressé par un produit périmé
-            return s.GetResult()
-                    .Where(p => p.DateDepart >= DateTime.Now)
+            return OrderingGroupResult(s);
+        }
+
+        internal static List<SearchResutPartialViewItem> OrderingGroupResult(SearchBase s)
+        {
+            Form115Entities db = new Form115Entities();
+
+            return  s.GetResult()
                     .GroupBy(p => p.Sejours.Hotels.IdHotel,
                              p => p,
                              (key, g) => new SearchResutPartialViewItem
-                                             {
-                                                 Hotel = db.Hotels.Where(h => h.IdHotel == key).FirstOrDefault(),
-                                                 Produits = g.ToList()
-                                             })
+                             {
+                                 Hotel = db.Hotels.Where(h => h.IdHotel == key).FirstOrDefault(),
+                                 Produits = g.ToList()
+                             })
                     .ToList();
         }
 

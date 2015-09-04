@@ -180,6 +180,7 @@
     <Compile Include="Infrastructure\Helpers\CommentairesHelper.cs" />
     <Compile Include="Infrastructure\Search\Base\SearchBase.cs" />
     <Compile Include="Infrastructure\Search\Base\SearchOption.cs" />
+    <Compile Include="Infrastructure\Search\Options\SearchOptionAPartirDAujourdHui.cs" />
     <Compile Include="Infrastructure\Search\Options\SearchOptionBestSort.cs" />
     <Compile Include="Infrastructure\Search\Options\SearchOptionCategorie.cs" />
     <Compile Include="Infrastructure\Search\Options\SearchOptionDateDepart.cs" />
