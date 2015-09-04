@@ -172,6 +172,7 @@
     <Compile Include="Controllers\HotelController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PromotionsController.cs" />
+    <Compile Include="Controllers\ReservationsController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -381,6 +382,8 @@
     <Content Include="Views\Shared\_BestPromo.cshtml" />
     <Content Include="Views\Promotions\Index.cshtml" />
     <Content Include="Views\Shared\_CommentView.cshtml" />
+    <Content Include="Views\Reservations\Reserver.cshtml" />
+    <Content Include="Views\Reservations\ReserverImpossible.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
