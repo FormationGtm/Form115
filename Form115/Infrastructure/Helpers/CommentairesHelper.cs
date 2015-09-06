@@ -27,7 +27,7 @@ namespace Form115.Infrastructure.Helpers
             var stringHiddenIdCommentaireReference = "<input type=\"hidden\" name=\"IdCommentaire\" value=\"" + idCommentaireReference + "\"/>";
           
 
-            var stringButtonSubmit = "<button type=\"submit\" class=\"btn-primary btn-lg\" id=\"PostBtn\">Poster</button>";
+            var stringButtonSubmit = "<button type=\"submit\" class=\"btn-info btn-lg\" id=\"PostBtn\">Poster</button>";
 
             divTag.InnerHtml = labelTitre.ToString() + inputTitre.ToString() + labelCommentaire.ToString() + inputCommentaire.ToString() + stringButtonSubmit + stringHiddenIdCommentaireReference;
 

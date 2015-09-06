@@ -22,7 +22,7 @@
     int cpt = 0;
     foreach (var item in ViewBag.BestHotels)
     {
-        <text><div class="partial_view_search_result sm-4" id="@String.Format("partial_view_search_result{0}",cpt)">
+        <text><div class="col-sm-6" id="@String.Format("partial_view_search_result{0}",cpt)">
 
     @Html.Action("PartialSearchResult", "Search", new {srpvi = item });
 </div></text>

@@ -10,6 +10,7 @@ namespace Form115.Models
     {
         // Informations retournées par le formulaire
         public DateTime DateDepart { get; set; }
+        public int[] DateIndifferente { get; set; }
         public byte? Duree { get; set; }
         public int? PrixMin { get; set; }
         public int? PrixMax { get; set; }

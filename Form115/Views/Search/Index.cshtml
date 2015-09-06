@@ -5,11 +5,11 @@
 }
 
 @section scripts{
-<script src="~/Scripts/DatePicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/Scripts/DatePicker/js/bootstrap-datepicker.min.js"></script>
     <script src="~/Scripts/Search/Index.js"></script>
 }
 @section styles{
-<link href="~/Scripts/DatePicker/css/bootstrap-datepicker.standalone.min.css" rel="stylesheet" />
+    <link href="~/Scripts/DatePicker/css/bootstrap-datepicker.standalone.min.css" rel="stylesheet" />
 }
 
 <h2>Recherche</h2>
@@ -19,7 +19,7 @@
 
     <div class="form-group col-sm-3">
         <fieldset>
-            <legend>Destination</legend>
+            <legend class="line-info text-center">Destination</legend>
             @*Continent, Pays, Région, Ville*@
             <label for="listeContinents">Continent :</label>
             <select class="form-control" id="listeContinents" name="Continent">
@@ -55,60 +55,74 @@
         </fieldset>
     </div>
 
-    <div class=" form-group col-sm-3">
+    <div class=" form-group col-sm-2">
         <fieldset>
-            <legend class="arriereplan">Période du séjour</legend>
-            <label for="DateDepart">Date de départ autour du :</label>
-            <input id="DateDepart" class="form-control" name="DateDepart" value="@DateTime.Now.Date.ToShortDateString()" />
+            <legend class="line-info text-center">Hôtel</legend>
+            @*Catégorie de l'hôtel*@
+            <div class="form-group col-sm-12">
+                <label>Catégorie</label>
+                @foreach (var c in Model.ListeCategories)
+                {
+                    <span class="form-group col-sm-10 text-nowrap">
+                        <input type="checkbox" name="Categorie" value="@c.Key" />
+                        @*Description à modifier en BDD pour utiliser plutôt @c.Value*@
+                        <label for="@c.Key" class="">@c.Key*</label>
+                    </span>
+                }
+            </div>
 
-            <label for="Duree">Durée approximative du séjour (jours)</label>
-            <input id="Duree" class="form-control" name="Duree" />
+        </fieldset>
+    </div>
+
+    <div class="form-group col-sm-7">
+        <fieldset>
+            <legend class="line-info text-center">Informations du séjour</legend>
+
+            <div class="row">
+                @*Période du séjour*@
+                <div class="form-group col-sm-6">
+                    <label for="DateDepart">Date de départ autour du :</label>
+                    <input id="DateDepart" class="form-control" name="DateDepart" value="@DateTime.Now.Date.ToShortDateString()" />
+                    <input type="checkbox" name="DateIndifferente" value="1" />
+                    <label for="1" class="">Indifférente</label>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="Duree">Durée du séjour (jours)</label>
+                    <input id="Duree" class="form-control" name="Duree" />
+                </div>
+            </div>
+
+            <div class="row">
+                @*Prix
+                    // TODO revoir gestion Prix*@
+                @*<input type="hidden" id="prixMaxSlider" value="@ViewBag.PrixMaxSlider" />*@
+                <div class="form-group col-sm-6">
+                    <label>Tranche de prix</label>
+                    <input type="text" id="PrixMini" name="PrixMini" class="form-control" />
+                    <input type="text" id="PrixMaxi" name="PrixMaxi" class="form-control" style="margin-top:8px; margin-bottom:8px" />
+                    @*<div id="Prix" class="col-sm-12"></div>*@
+                </div>
+
+                @*Nombre de personnes*@
+                <div class="form-group col-sm-6">
+                    <label>Nombre de personnes</label>
+                    <select name="NbPers" id="NbPers" class="form-control">
+                        @for (int i = 1; i <= @Model.DisponibiliteMax; i++)
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    </select>
+                </div>
+
+            </div>
+
 
 
         </fieldset>
     </div>
 
     <div class="form-group col-sm-5">
-        <fieldset>
-            <legend>Informations du séjour</legend>
-            @*Catégorie de l'hôtel*@
-            <div class="form-group col-sm-4">
-                <label>Catégorie de l'hôtel </label>
-                @foreach (var c in Model.ListeCategories)
-                {
-                    <span class="form-group col-sm-10 text-nowrap">
-                        <input type="checkbox" name="Categorie" value="@c.Key" /> 
-                        <label for="@c.Key" class="">@c.Value</label>
-                    </span>
-                }
-            </div>
-
-            @*Nombre de personnes*@
-            <div class="form-group col-sm-4">
-                <label>Nombre de personnes</label>
-                <select name="NbPers" id="NbPers" class="form-control">
-                    @for (int i = 1; i <= @Model.DisponibiliteMax; i++)
-                    {
-                        <option value="@i">@i</option>
-                    }
-                </select>
-            </div>
-
-            @*Prix
-                // TODO revoir gestion Prix*@
-            @*<input type="hidden" id="prixMaxSlider" value="@ViewBag.PrixMaxSlider" />*@
-            <div class="form-group col-sm-4">
-                <label>Tranche de prix</label>
-                <input type="text" id="PrixMini" name="PrixMini" class="form-control" />
-                <input type="text" id="PrixMaxi" name="PrixMaxi" class="form-control" style="margin-top:8px; margin-bottom:8px" />
-                @*<div id="Prix" class="col-sm-12"></div>*@
-            </div>
-
-        </fieldset>
-    </div>
-
-    <div class="form-group col-sm-5 fond-boutton">
-        <button type="submit" class="btn-primary" id="SearchBtn">Rechercher</button>
+        <button type="submit" class="btn-info btn-lg" id="SearchBtn">Rechercher &raquo;</button>
     </div>
 
 

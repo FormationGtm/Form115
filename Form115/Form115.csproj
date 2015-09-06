@@ -387,6 +387,7 @@
     <Content Include="Views\Shared\_CommentView.cshtml" />
     <Content Include="Views\Reservations\Reserver.cshtml" />
     <Content Include="Views\Reservations\ReserverImpossible.cshtml" />
+    <Content Include="Views\Shared\_SearchCommonOptionsPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

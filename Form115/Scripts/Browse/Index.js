@@ -20,16 +20,16 @@ function updateSearchResultpartialViews(data) {
         var nbLignes = parseInt($('#nbProduitsAffiches').html());
         $.each(obj.produits, function (idx_prod, produit) {
             if (idx_prod < nbLignes) {
-                $('#partial_view_search_result' + idx).find('tr.ligne_produit_' + idx_prod).find('td.colDate').html(produit.dateDepart);
-                $('#partial_view_search_result' + idx).find('tr.ligne_produit_' + idx_prod).find('td.colDuree').html(produit.duree);
-                $('#partial_view_search_result' + idx).find('tr.ligne_produit_' + idx_prod).find('td.colPrix').html(produit.prix);
+                $('#partial_view_search_result' + idx).find('tr.ligne_produit_' + idx_prod).find('td.colp-date').html(produit.dateDepart.concat());
+                $('#partial_view_search_result' + idx).find('tr.ligne_produit_' + idx_prod).find('td.colp-duree').html(produit.duree + 'j');
+                $('#partial_view_search_result' + idx).find('tr.ligne_produit_' + idx_prod).find('td.colp-prix').html(produit.prix + '€');
             }
         });
         // on efface les lignes en trop si nécessaire
         for (var i = obj.produits.length ; i <= nbLignes; i++) {
-            $('#partial_view_search_result' + idx).find('tr.ligne_produit_' + i).find('td.colDate').html('');
-            $('#partial_view_search_result' + idx).find('tr.ligne_produit_' + i).find('td.colDuree').html('');
-            $('#partial_view_search_result' + idx).find('tr.ligne_produit_' + i).find('td.colPrix').html('');
+            $('#partial_view_search_result' + idx).find('tr.ligne_produit_' + i).find('td.colp-date').html('');
+            $('#partial_view_search_result' + idx).find('tr.ligne_produit_' + i).find('td.colp-duree').html('');
+            $('#partial_view_search_result' + idx).find('tr.ligne_produit_' + i).find('td.colp-prix').html('');
         }
             
     });

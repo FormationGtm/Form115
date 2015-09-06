@@ -33,7 +33,7 @@ namespace Form115.Controllers
 
         public ActionResult Result(int id)
         {
-            var svm = new SearchViewModel { Ville = id };
+            var svm = new SearchViewModel { Ville = id, DateIndifferente = new int[] {1} };
             var result = GetSearchResult(svm);
 
             return View(result);
@@ -66,6 +66,7 @@ namespace Form115.Controllers
             SearchBase s = new Search();
             s = new SearchOptionDestination(s, bvm.Continent, bvm.Region, bvm.Pays, bvm.Ville);
             s = new SearchOptionAPartirDAujourdHui(s);
+            s = new SearchOptionNbPers(s, 1);
             return OrderingGroupResult(s);
         }
 
@@ -74,7 +75,10 @@ namespace Form115.Controllers
             // Search et SearchOption héritent de SearchBase
             SearchBase s = new Search();
             s = new SearchOptionDestination(s, svm.Continent, svm.Region, svm.Pays, svm.Ville);
-            s = new SearchOptionDateDepart(s, svm.DateDepart);
+            if (svm.DateIndifferente == null)
+            {
+                s = new SearchOptionDateDepart(s, svm.DateDepart);
+            }
             s = new SearchOptionAPartirDAujourdHui(s);
             s = new SearchOptionDuree(s, svm.Duree);
             s = new SearchOptionNbPers(s, svm.NbPers);

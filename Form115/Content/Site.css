@@ -181,6 +181,20 @@ textarea {
     color: #e6b87b;
 }
 
+.partial_view_search_result {
+    border: solid;
+    border-color: #3e6376;
+    border-width: 3px;
+    border-radius: 8px;
+}
+
+.partial_view_search_result > h3 {
+    border-radius: 8px;
+    background-color: #3e6376;
+    color: #f8ebc8;
+    padding: 1ex;
+}
+
 /*.panel > .panel-heading:hover {
     color: #e6b87b;
     text-decoration: none;
@@ -284,7 +298,7 @@ p, div, a {
 
 td {
     font-family: 'PT Sans', sans-serif;
-    font-size;medium;
+    font-size: medium;
 }
 
 /*.left-col {
