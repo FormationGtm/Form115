@@ -23,7 +23,7 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr onclick="document.location='~/Hotel/Details/@item.IdHotel/@item.DateDebut.ToString("yyyy-MM-dd")/@item.DateFin.ToString("yyyy-MM-dd")'" class="link-tr">
+            <tr onclick="document.location='/Hotel/Details/@item.IdHotel/@item.DateDebut.ToString("yyyy-MM-dd")/@item.DateFin.ToString("yyyy-MM-dd")'" class="link-tr">
                 <td class="col-md-4">
                     <span class="col-md-9">@item.Hotels.Nom</span>
                     <span class="col-md-3">@item.Hotels.Categorie*</span>
@@ -39,11 +39,11 @@
                     @item.DateFin.ToString("dd-MM-yy")
                 </td>
                 <td class="col-md-1 colp-prix promo-highlight">
-                    <a href="~/Hotel/Details/@item.IdHotel/@item.DateDebut.ToString("yyyy-MM-dd")/@item.DateFin.ToString("yyyy-MM-dd")">
+                    <a href="/Hotel/Details/@item.IdHotel/@item.DateDebut.ToString("yyyy-MM-dd")/@item.DateFin.ToString("yyyy-MM-dd")">
                         @item.Valeur%
                     </a>
                 </td>
-                <td class="col-md-1 img-thumbnail"> <img class="img-thumbnail" src="~/Areas/Admin/Uploads/@item.Hotels.Photo" /></td>
+                <td class="col-md-1 img-thumbnail"> <img src="~/Areas/Admin/Uploads/@item.Hotels.Photo" /></td>
 
 
 
