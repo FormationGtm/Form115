@@ -4,45 +4,52 @@
     ViewBag.Title = "Index";
 }
 
-<h2 class="col-lg-offset-2">L'ensemble de nos promotions en cours</h2>
+<h2 class="text-center">L'ensemble de nos promotions en cours</h2>
 
 
-<table class="table">
-    <tr class="alert-info">
-        <th>Hôtels-Catégories</th>
-        <th>Destination</th>
-        <th>Début de l'offre</th>
-        <th>Fin de l'offre</th>
-        <th>Réduction</th>
-        
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @item.Hotels.Nom - @item.Hotels.Categorie*
-            </td>
-            <td>
-                @item.Hotels.Villes.name 
-            </td>
-
-            <td>
-                @item.DateDebut.ToString("dd-MM-yy")
-            </td>
-            <td>
-                @item.DateFin.ToString("dd-MM-yy")
-            </td>
-            <td class="alert-info btn-info">
-                <a href="~/Hotel/Details/@item.IdHotel/@item.DateDebut.ToString("yyyy-MM-dd")/@item.DateFin.ToString("yyyy-MM-dd")">
-                    @item.Valeur%
-                </a>
-            </td>
-            <td class="img-thumbnail"> <img class="img-thumbnail" src="~/Areas/Admin/Uploads/@item.Hotels.Photo" /></td>
-
-
+<table class="table col-md-12 sansBordure">
+    <thead>
+        <tr class="alert-info">
+            <th>Hôtels-Catégories</th>
+            <th>Destination</th>
+            <th>Début de l'offre</th>
+            <th>Fin de l'offre</th>
+            <th>Réduction</th>
+            <th></th>
 
         </tr>
-    }
+
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr onclick="document.location='~/Hotel/Details/@item.IdHotel/@item.DateDebut.ToString("yyyy-MM-dd")/@item.DateFin.ToString("yyyy-MM-dd")'" class="link-tr">
+                <td class="col-md-4">
+                    <span class="col-md-9">@item.Hotels.Nom</span>
+                    <span class="col-md-3">@item.Hotels.Categorie*</span>
+                </td>
+                <td class="col-md-2">
+                    @item.Hotels.Villes.name
+                </td>
+
+                <td class="col-md-2 colp-date">
+                    @item.DateDebut.ToString("dd-MM-yy")
+                </td>
+                <td class="col-md-2 colp-date">
+                    @item.DateFin.ToString("dd-MM-yy")
+                </td>
+                <td class="col-md-1 colp-prix promo-highlight">
+                    <a href="~/Hotel/Details/@item.IdHotel/@item.DateDebut.ToString("yyyy-MM-dd")/@item.DateFin.ToString("yyyy-MM-dd")">
+                        @item.Valeur%
+                    </a>
+                </td>
+                <td class="col-md-1 img-thumbnail"> <img class="img-thumbnail" src="~/Areas/Admin/Uploads/@item.Hotels.Photo" /></td>
+
+
+
+            </tr>
+        }
+
+    </tbody>
 
 </table>

@@ -4,27 +4,40 @@
 <div class="panel panel-info">
 
     <div class="panel-heading">
-        <h4 class="alert-info">Dernière minute</h4>
+        <h4>Dernière minute</h4>
     </div>
     <div class="panel-body">
-        <div class="col-md-12 alert-info">
-            <span class="col-md-3 alert-info">Date de départ</span>
-            <span class="col-md-3">Destination</span>
-            <span class="col-md-3">Durée du séjour</span>
-            <span class="col-md-3">Prix</span>
-        </div>
-        @foreach (Produits prod in Model)
-        {
-            DateTime date = @prod.DateDepart;
-            <a href="/Hotel/Details/@prod.Sejours.IdHotel">
-                <div class="col-md-12">
-                    <span class="col-md-3">@date.ToString("dd-MM-yyyy")</span>
-                    <span class="col-md-3">@prod.Sejours.Hotels.Villes.name</span>
-                    <span class="col-md-3">@prod.Sejours.Duree jours</span>
-                    <span class="col-md-3">@prod.Prix euros</span>
-                </div>
-            </a>
-        }
-    </div>
+        <table class="table col-md-12 sansBordure">
+            <thead class="line-info">
+                <tr>
+                    <th>Date de départ</th>
+                    <th>Destination</th>
+                    <th>Durée du séjour</th>
+                    <th>Prix</th>
+                </tr>
 
+            </thead>
+            <tbody>
+                @foreach (Produits prod in Model)
+                {
+                    DateTime date = @prod.DateDepart;
+                    <tr onclick="document.location='/Hotel/Details/@prod.Sejours.IdHotel'" class="link-tr">
+                        
+                        <td class="col-md-2 colp-date"><a href="/Hotel/Details/@prod.Sejours.IdHotel">@date.ToString("dd-MM-yyyy")</a></td>
+                        <td class="col-md-7">
+                            <span class="col-md-4">@prod.Sejours.Hotels.Villes.name.Trim()</span>
+                            <span class="col-md-5">@prod.Sejours.Hotels.Nom</span>
+                            <span class="col-md-3">@prod.Sejours.Hotels.Villes.Pays.Name.Trim()</span>
+                        </td>
+                            <td class="col-md-2 colp-duree"><span class="col-md-11">@prod.Sejours.Duree jours</span></td>
+                            <td class="col-md-1 colp-prix">@String.Format("{0}€", prod.Prix)</td>
+
+</tr>
+
+                }
+
+            </tbody>
+        </table>
+
+    </div>
 </div>

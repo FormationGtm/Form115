@@ -2,7 +2,7 @@
 @using DataLayer.Models
 
 
-<div class="sansBordure panel panel-info ">
+<div class="panel panel-info ">
 
     <div class="panel-heading">
         <a href="~/Promotions/Index"><h4>Nos meilleures promotions en cours</h4></a>
@@ -11,10 +11,9 @@
 
         @foreach (var prod in Model.Item1)
         {
-
-            <a href="~/Hotel/Details/@prod.IdHotel/@prod.DateDebut.ToString("yyyy-MM-dd")/@prod.DateFin.ToString("yyyy-MM-dd")">
-                <div class="btn-info btn-sm">@prod.Hotels.Nom: @prod.Valeur%</div>
-            </a>
+                <a class="btn-info btn-sm btn-promo" href="~/Hotel/Details/@prod.IdHotel/@prod.DateDebut.ToString("yyyy-MM-dd")/@prod.DateFin.ToString("yyyy-MM-dd")">
+                    @prod.Hotels.Nom: @prod.Valeur%
+                </a>
             <div>@prod.Hotels.Villes.name - @prod.Hotels.Villes.Pays.Name</div>
 
             <div><strong>Validité:</strong> @prod.DateFin.ToString("dd-MM")</div>
