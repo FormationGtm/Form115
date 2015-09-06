@@ -7,8 +7,12 @@ namespace Form115.Areas.Admin.Models
 {
     public class LettreInfoViewModel
     {
-        public String Objet;
+    
+        public string Objet {get; set; }
 
-        public String Corps;
+        public string Corps {get; set; }
+
+        public string AdresseLien {get; set; }
+
     }
 }
