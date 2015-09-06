@@ -9,7 +9,7 @@ namespace Form115Console
     class Program
     {
 
-        private const string PicDir = @"C:\Users\etudiant\Documents\GitHub\Form115\Form115\Areas\Admin\Uploads";
+        private const string PicDir = @"C:\Users\Sarta\Documents\GitHub\Form115\Form115\Areas\Admin\Uploads";
         private static readonly Form115Entities db = new Form115Entities();
         private const string Descrip = "Dans ce luxueux hôtel à proximité de la plage, vous profiterez pleinement de votre voyage dans cette ville paradisiaque..";
 
@@ -47,6 +47,7 @@ namespace Form115Console
                 Console.WriteLine();
 
             }
+
             db.SaveChanges();
             return list.Count;
 
