@@ -11,13 +11,14 @@ namespace Form115.Controllers
     {
        public readonly Form115Entities db = new Form115Entities();
 
-        // GET: Reservations
-        public ActionResult Reserver(int? id, int? quantite)
+        // GET: Reservations/IdProduit/?quantite=NbPers
+        public ActionResult Reserver(int id, int quantite)
         {
 
-            var verif = db.Produits.Where(p => p.IdSejour == 1003).First();
+            var verif = db.Produits.Where(p=>p.IdProduit==id).First();
+            var qteRes = verif.Reservations.Select(p => p.Quantity).Sum();
 
-            if (verif.NbPlaces > quantite && verif.NbPlaces - quantite > 0)
+            if ((verif.NbPlaces-qteRes) - quantite >= 0)
             {
                 
                 return View("Reserver");

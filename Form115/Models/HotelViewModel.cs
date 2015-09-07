@@ -73,5 +73,7 @@ namespace Form115.Models
             }
         }
 
+        public int NbPers { get; set; }
+
     }
 }

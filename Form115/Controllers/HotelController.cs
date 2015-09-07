@@ -78,6 +78,10 @@ namespace Form115.Controllers
             //{
                 prods = prods.Where(p => p.DateDepart <= hvm._dateFin);
             //}
+                if (hvm.NbPers >= 0)
+                {
+                    prods = prods.Where(p => ((p.NbPlaces - (p.Reservations.Count() != 0 ? p.Reservations.Sum(r => r.Quantity) : 0)) >= hvm.NbPers));
+                }
 
             // HACK AsEnumerable avant le select ? Sinon ATTENTION, le nb_restants ne sera
             // pas à jour pour les prouits n'ayant pas de réservation, nécessite opérateur ternaire poutr jointure externe
@@ -87,7 +91,8 @@ namespace Form115.Controllers
                                 prix = p.Prix, 
                                 promotions = p.Promotion,
                                 prixSolde = p.PrixSolde,
-                                nb_restants = p.NbPlaces - p.Reservations.Sum(r => r.Quantity)
+                                nb_restants = p.NbPlaces - p.Reservations.Sum(r => r.Quantity),
+                                sejour =p.IdProduit
                             });
             return Json(result, JsonRequestBehavior.AllowGet);
         }

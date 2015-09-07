@@ -11,6 +11,7 @@
     loadSearchParams();
 
     $("input").change(chargerListeProduits);
+    $("select").change(chargerListeProduits);
     chargerListeProduits();
 
     // Réponses à des commentaires : afficher un formulaire idoine
@@ -35,6 +36,7 @@ function chargerListeProduits() {
         DureeMaxSejour: $("[name=DureeMaxSejour]").val(),
         DateDebut: $("[name=DateDebut]").val(),
         DateFin: $("[name=DateFin]").val(),
+        NbPers: $("[name=NbPers]").find(":selected").val(),
     };
     console.log(obj);
     $.post(
@@ -60,6 +62,8 @@ function chargerListeProduits() {
                         str += "<td style='text-align:right'><s>" + item.prix + '€</s> <span class="text-info">' + item.prixSolde + "€</span> </td>";
                     }
                     str += "<td style='text-align:right'>" + item.nb_restants + "</td>";
+                    str += "<td style='text-align:right'>" + obj.NbPers+ "</td>";
+                    str += "<td class='btn btn-info'><a href='/Reservations/Reserver/"+item.sejour+"?quantite="+obj.NbPers +"'>Réserver</a></td>";
                     str += "</tr>";
                 });
                 console.log("each exécuté.")

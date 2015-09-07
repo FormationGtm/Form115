@@ -7,7 +7,7 @@
 @{Hotels hotel = (new Form115Entities()).Hotels.Where(h => h.IdHotel == Model.IdHotel).First();}
 
 @{
-    ViewBag.Title = "Hotel " + hotel.Nom;
+    ViewBag.Title = hotel.Nom;
 }
 
 @section scripts {
@@ -68,6 +68,10 @@
                 et
                 <input type="number" name="DureeMaxSejour" style="width:5em" />
                 jours.
+                <select name="NbPers">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                </select>
             </p>
 
             @*@{var nb_durees = @hotel.Sejours.Count();}
@@ -98,7 +102,7 @@
         </tr>
     </thead>
     <tbody id="tbodyListeProduits">
-        @foreach (var prod in sejour.Produits)
+        @*@foreach (var prod in sejour.Produits)
         {
             DateTime date = @prod.DateDepart;
             var nb_rest = prod.NbPlaces - prod.Reservations.GroupBy(r => r.IdProduit).Count();
@@ -107,9 +111,11 @@
                 <td>@date.ToString()</td>
                 <td>@prod.Sejours.Duree jours</td>
                 <td>@prod.Prix euros</td>
-                <td style="text-align:right">@nb_rest</td>
+                <td>@nb_rest</td>    
+                <td></td>                                         
+                <td class="btn btn-info"><a href="/Reservations/Reserver/@prod.IdProduit/?place=">Réserver</a></td>
             </tr>
-        }
+        }*@
     </tbody>
 </table>
 @*@Html.CommentairesDivHelper(hotel.Commentaires.ToList(), null, 0)*@
