@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2 class="text-center">L'ensemble de nos promotions en cours</h2>
+<h2 class="text-center panel-heading">L'ensemble de nos promotions en cours</h2>
 
 
 <table class="table col-md-12 sansBordure">
@@ -24,9 +24,8 @@
         @foreach (var item in Model)
         {
             <tr onclick="document.location='/Hotel/Details/@item.IdHotel/@item.DateDebut.ToString("yyyy-MM-dd")/@item.DateFin.ToString("yyyy-MM-dd")'" class="link-tr">
-                <td class="col-md-4">
-                    <span class="col-md-9">@item.Hotels.Nom</span>
-                    <span class="col-md-3">@item.Hotels.Categorie*</span>
+                <td class="col-md-3">
+                    @item.Hotels.Nom - @item.Hotels.Categorie*                    
                 </td>
                 <td class="col-md-2">
                     @item.Hotels.Villes.name
@@ -43,7 +42,7 @@
                         @item.Valeur%
                     </a>
                 </td>
-                <td class="col-md-1 img-thumbnail"> <img src="~/Areas/Admin/Uploads/@item.Hotels.Photo" /></td>
+                <td class="col-md-2"> <img class="img-responsive" src="~/Areas/Admin/Uploads/@item.Hotels.Photo" /> </td>
 
 
 
