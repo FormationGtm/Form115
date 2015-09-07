@@ -161,6 +161,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\HotelsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProduitsController.cs" />
     <Compile Include="Areas\Admin\Controllers\PromotionsController.cs" />
@@ -248,6 +249,7 @@
     <Content Include="Areas\Admin\Views\Shared\_AdminStats.cshtml" />
     <Content Include="Areas\Admin\Views\Publipostage\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Publipostage\Info.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <None Include="Properties\PublishProfiles\OVH.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\Admin\Produit\MiseEnVente.js" />

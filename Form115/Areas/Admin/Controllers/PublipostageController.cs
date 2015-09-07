@@ -11,18 +11,19 @@ using System.Web.UI.HtmlControls;
 
 namespace Form115.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class PublipostageController : Controller
     {
 
         private Form115Entities db = new Form115Entities();
 
         // GET: Admin/Publipostage
+        [Authorize(Roles = "Admin")]
         public ViewResult Index()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult EnvoiLettreInfo(LettreInfoViewModel lettreInfoVM)
         {
             if (!ModelState.IsValid)
@@ -70,7 +71,8 @@ namespace Form115.Areas.Admin.Controllers
             return View("Info", infoVM);
         }
 
-        public ActionResult Desinscription(int id) {
+        public ActionResult Desinscription(int id)
+        {
             var infoVM = new InfoViewModel
             {
                 TitrePage = "Désinscription de la lettre d'information d'Hermétistes"

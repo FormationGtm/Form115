@@ -23,6 +23,11 @@ namespace Form115
             new { controller = "Promotions", action = "Index", id = UrlParameter.Optional },
             new[] { "Form115.Controllers" });
 
+
+            routes.MapRoute("Home", "Home/{action}/{id}",
+            new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+            new[] { "Form115.Controllers" });
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
