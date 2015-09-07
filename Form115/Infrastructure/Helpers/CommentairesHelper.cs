@@ -53,11 +53,19 @@ namespace Form115.Infrastructure.Helpers
 
         public static void CommentairesDiv(List<Commentaires> commentaires, int? idCommentaire, int cpt, StringBuilder s)
         {
+            //if (cpt != 0)
+            //{
+            //    s.Append(String.Format("<div class=\"col-sm-offset-{0} partial_view_search_result\">", cpt));
+            //}
             foreach (var com in commentaires.Where(c => c.IdCommentaireReference == idCommentaire).OrderBy(c=>c.DateCommentaire))
             {
                s.Append(CommentaireDiv(com, cpt));
                CommentairesDiv(commentaires, com.IdCommentaire, cpt+1, s);
             }
+            //if (cpt != 0)
+            //{
+            //    s.Append("</div>");
+            //}
         }
 
         public static String CommentaireDiv(Commentaires commentaire, int cpt)
@@ -66,7 +74,7 @@ namespace Form115.Infrastructure.Helpers
 
             // le <div> externe
             var divTag = new TagBuilder("div");
-            divTag.AddCssClass(String.Format("col-sm-offset-{0}", cpt));
+            // divTag.AddCssClass(String.Format("col-sm-offset-{0}", cpt));
 
 
             // le <div> interne FirstLine (présentation)

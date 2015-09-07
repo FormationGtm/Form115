@@ -25,6 +25,21 @@ namespace Form115.Controllers
             svm.ListeCategories = _db.Categories.Select(c => new { Key = c.IdCategorie, Value = c.Description }).ToDictionary(x => x.Key, x => x.Value);
             svm.DisponibiliteMax = _db.Produits.Select(p => p.NbPlaces).Max();
             svm.DisponibiliteMax = 20;
+            svm.DureeMini = _db.Produits.Select(p => p.Sejours.Duree).Min();
+            svm.DureeMaxi = _db.Produits.Select(p => p.Sejours.Duree).Max();
+            svm.PrixMini = (int)Math.Floor((double)_db.Produits.Select(p => p.Prix).Min());
+            svm.PrixMaxi = (int)Math.Ceiling((double)_db.Produits.Select(p => p.Prix).Max());
+            svm.DateDepart = DateTime.Now;
+
+            return View(svm);
+        }
+
+        [HttpPost]
+        public ActionResult Index(SearchViewModel svm)
+        {
+            // TODO classe Categorie qui renverra la liste des catégories (méthode statique)
+            svm.ListeCategories = _db.Categories.Select(c => new { Key = c.IdCategorie, Value = c.Description }).ToDictionary(x => x.Key, x => x.Value);
+            svm.DisponibiliteMax = _db.Produits.Select(p => p.NbPlaces).Max();
 
             return View(svm);
         }
@@ -58,7 +73,8 @@ namespace Form115.Controllers
             //    XmlSearchViewModel = svm.SerializeSearchViewModel()
             //};
             //return View(rvm);// l.Select(v => new {v.IdVoiture, v.TypeVendeur, v.NumDep, v.Prix}
-            return View(result);
+            ViewBag.ListResults = result;
+            return View(svm);
         }
 
         public static List<SearchResutPartialViewItem> GetSearchResult(BrowseViewModel bvm)
@@ -80,11 +96,12 @@ namespace Form115.Controllers
                 s = new SearchOptionDateDepart(s, svm.DateDepart);
             }
             s = new SearchOptionAPartirDAujourdHui(s);
-            s = new SearchOptionDuree(s, svm.Duree);
+            // TODO Attention ici il peut n'y avoir qu'une seule renseignée
+            s = new SearchOptionDuree(s, svm.DureeMini, svm.DureeMaxi);
             s = new SearchOptionNbPers(s, svm.NbPers);
             s = new SearchOptionCategorie(s, svm.Categorie);
-            s = new SearchOptionPrixMax(s, svm.PrixMax);
-            s = new SearchOptionPrixMin(s, svm.PrixMin);
+            s = new SearchOptionPrixMax(s, svm.PrixMaxi);
+            s = new SearchOptionPrixMin(s, svm.PrixMini);
 
             // Intégration de DateDepart > DateTime.Now ici car on n'est pas intéressé par un produit périmé
             return OrderingGroupResult(s);

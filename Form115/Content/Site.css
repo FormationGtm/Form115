@@ -186,6 +186,7 @@ textarea {
     border-color: #3e6376;
     border-width: 3px;
     border-radius: 8px;
+    margin-bottom: 10px;
 }
 
 .partial_view_search_result > h3 {

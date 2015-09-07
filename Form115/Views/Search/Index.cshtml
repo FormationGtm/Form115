@@ -14,7 +14,7 @@
 
 <h2>Recherche</h2>
 
-@using (Html.BeginForm("Result", "Search")) // , new { svm = Model, page = 1}
+@using (Html.BeginForm("Result", "Search", FormMethod.Post, new { @class = "specific-form" })) // , new { svm = Model, page = 1}
 {
 
     <div class="form-group col-sm-3">
@@ -75,50 +75,7 @@
     </div>
 
     <div class="form-group col-sm-7">
-        <fieldset>
-            <legend class="line-info text-center">Informations du séjour</legend>
-
-            <div class="row">
-                @*Période du séjour*@
-                <div class="form-group col-sm-6">
-                    <label for="DateDepart">Date de départ autour du :</label>
-                    <input id="DateDepart" class="form-control" name="DateDepart" value="@DateTime.Now.Date.ToShortDateString()" />
-                    <input type="checkbox" name="DateIndifferente" value="1" />
-                    <label for="1" class="">Indifférente</label>
-                </div>
-                <div class="form-group col-sm-6">
-                    <label for="Duree">Durée du séjour (jours)</label>
-                    <input id="Duree" class="form-control" name="Duree" />
-                </div>
-            </div>
-
-            <div class="row">
-                @*Prix
-                    // TODO revoir gestion Prix*@
-                @*<input type="hidden" id="prixMaxSlider" value="@ViewBag.PrixMaxSlider" />*@
-                <div class="form-group col-sm-6">
-                    <label>Tranche de prix</label>
-                    <input type="text" id="PrixMini" name="PrixMini" class="form-control" />
-                    <input type="text" id="PrixMaxi" name="PrixMaxi" class="form-control" style="margin-top:8px; margin-bottom:8px" />
-                    @*<div id="Prix" class="col-sm-12"></div>*@
-                </div>
-
-                @*Nombre de personnes*@
-                <div class="form-group col-sm-6">
-                    <label>Nombre de personnes</label>
-                    <select name="NbPers" id="NbPers" class="form-control">
-                        @for (int i = 1; i <= @Model.DisponibiliteMax; i++)
-                        {
-                            <option value="@i">@i</option>
-                        }
-                    </select>
-                </div>
-
-            </div>
-
-
-
-        </fieldset>
+        @Html.Partial("_SearchCommonOptionsPartialView")
     </div>
 
     <div class="form-group col-sm-5">

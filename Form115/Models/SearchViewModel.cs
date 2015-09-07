@@ -9,11 +9,13 @@ namespace Form115.Models
     public class SearchViewModel : BrowseViewModel
     {
         // Informations retournées par le formulaire
+        // TODO validation de formulaire
         public DateTime DateDepart { get; set; }
         public int[] DateIndifferente { get; set; }
-        public byte? Duree { get; set; }
-        public int? PrixMin { get; set; }
-        public int? PrixMax { get; set; }
+        public byte? DureeMini { get; set; }
+        public byte? DureeMaxi { get; set; }
+        public int? PrixMini { get; set; }
+        public int? PrixMaxi { get; set; }
         public int[] Categorie { get; set; }
         public int? NbPers { get; set; }
 
