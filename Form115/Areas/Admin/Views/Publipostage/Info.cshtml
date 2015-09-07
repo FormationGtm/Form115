@@ -7,5 +7,8 @@
 
 <p>@Model.DetailInfo</p>
 
-<p>@Model.Ajout</p>
+@if (Model.Ajout != null) {
+    @Html.Raw(Model.Ajout)
+}
+
 

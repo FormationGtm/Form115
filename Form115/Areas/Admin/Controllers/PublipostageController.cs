@@ -18,14 +18,17 @@ namespace Form115.Areas.Admin.Controllers
         private Form115Entities db = new Form115Entities();
 
         // GET: Admin/Publipostage
-        public ActionResult Index()
+        public ViewResult Index()
         {
             return View();
         }
 
         public ActionResult EnvoiLettreInfo(LettreInfoViewModel lettreInfoVM)
         {
-
+            if (!ModelState.IsValid)
+            {
+                return View("Index");
+            }
             var destinataires = db.Utilisateurs
                                     .Where(u => (bool)u.InscritLettreInfo == true)
                                     .Select(u => new { u.IdUtilisateur, u.Prenom, u.Nom, u.AspNetUsers.Email });
@@ -63,6 +66,7 @@ namespace Form115.Areas.Admin.Controllers
                 ResumeInfoTitre = "Envoi réussi.",
                 DetailInfo = "La lettre d'information a été envoyée."
             };
+            //return RedirectToAction("Desinscription");
             return View("Info", infoVM);
         }
 
@@ -84,41 +88,48 @@ namespace Form115.Areas.Admin.Controllers
                     db.SaveChanges();
                     infoVM.ResumeInfoTitre = "Désinscription enregistrée.";
                     infoVM.DetailInfo = u.Prenom + " " + u.Nom + ", vous avez bien été enlevé(e) de notre liste de diffusion.";
-                    //infoVM.Ajout = new HtmlElement
-                    //{
-                    //    InnerHtml = "<p> Si c'est une erreur, vous pouvez vous réinscrire en cliquant <a href='/Admin/Publipostage/Inscription/" + u.IdUtilisateur + "'> ici</a></p>."
-                    //};
-                    //infoVM.AjoutInfo = "Si c'est une erreur, vous pouvez vous réinscrire en cliquant <a href='/Admin/Publipostage/Inscription/"+u.IdUtilisateur+"'> ici</a>.";
+                    infoVM.Ajout = "<p> Si c'est une erreur, vous pouvez vous réinscrire "
+                                            +"en cliquant <a href='/Admin/Publipostage/Inscription/" + u.IdUtilisateur + "'> ici</a></p>." ;
                 }
                 catch
                 {
                     infoVM.ResumeInfoTitre = "Echec de la désinscription.";
                     infoVM.DetailInfo = u.Prenom + " " + u.Nom + ", un problème est survenu lors de votre désinscription de notre liste de diffusion.";
-                    infoVM.Ajout = "Nous vous conseillons de réessayer dans quelques instants." ;
+                    infoVM.Ajout = "<p>Nous vous conseillons de réessayer dans quelques instants.</p>" ;
                 }
             }
             return View("Info", infoVM);
         }
 
-        //public ActionResult Inscription(int id)
-        //{
-        //    Utilisateurs u = db.Utilisateurs.Find(id);
-        //    if (u == null)
-        //    {
-        //        ViewBag.MessageErreur = "L'utilisateur ayant cherché à s'inscrire n'existe plus.";
-        //        return RedirectToAction("Erreur", "Home");
-        //    }
-        //    u.InscritLettreInfo = true;
-        //    try
-        //    {
-        //        db.SaveChanges();
-        //        return View("ConfirmDesinscription");
-        //    }
-        //    catch
-        //    {
-        //        return View("EchecDesinscription");
-        //    }
-        //}
+        public ActionResult Inscription(int id)
+        {
+            var infoVM = new InfoViewModel
+            {
+                TitrePage = "Inscription à la lettre d'information d'Hermétistes"
+            };
+            Utilisateurs u = db.Utilisateurs.Find(id);
+            if (u == null)
+            {
+                infoVM.ResumeInfoTitre = "Erreur";
+                infoVM.DetailInfo = "L'utilisateur ayant cherché à s'inscrire n'existe plus.";
+            }
+            else {
+                u.InscritLettreInfo = true;
+                try
+                {
+                    db.SaveChanges();
+                    infoVM.ResumeInfoTitre = "Inscription enregistrée.";
+                    infoVM.DetailInfo = u.Prenom + " " + u.Nom + ", vous avez bien été inscrit(e) à notre liste de diffusion.";
+                }
+                catch
+                {
+                    infoVM.ResumeInfoTitre = "Echec de l'inscription.";
+                    infoVM.DetailInfo = u.Prenom + " " + u.Nom + ", un problème est survenu lors de votre inscription à notre liste de diffusion.";
+                    infoVM.Ajout = "<p>Nous vous conseillons de réessayer dans quelques instants.</p>";
+                }
+            }
+            return View("Info", infoVM);
+        }
 
     }
 }
