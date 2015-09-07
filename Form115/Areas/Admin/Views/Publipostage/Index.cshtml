@@ -1,7 +1,66 @@
-﻿
+﻿@using Form115.Areas.Admin.Models
+@model LettreInfoViewModel
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Envoyer une lettre d'information</h2>
 
+<hr />
+
+<p>Cet outil vous permet d'envoyer une lettre à tous les utilisateurs abonnés pour les informer d'une nouveauté. </p>
+<p>Vous pouvez y ajouter un lien qui sera inséré après votre texte, à la fin de la lettre.</p>
+<p>Dans le corps du message vous pouvez insérer le nom et le prénom de votre destinataire 
+    en utilisant les chaines @@Nom et @@Prenom.</p>
+
+<hr />
+
+@using (Html.BeginForm("EnvoiLettreInfo", "Publipostage"))
+{
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" value="@ViewBag.idHotelASelectionner" id="champCacheIdHotel">
+
+    <div class="form-horizontal">
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Objet, "Objet", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Objet, 
+                                    new { htmlAttributes = new { @class = "form-control",
+                                                                 placeholder = "Objet du message",/*, size = "40"*/}
+                                    })
+                @Html.ValidationMessageFor(model => model.Objet, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Corps, "Corps", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Corps, 
+                                    new { @class = "form-control", 
+                                            placeholder = "Bonjour @Prenom @Nom, Nous avons le plaisir de vous annoncer...",
+                                            /*, cols="40", rows="30"*/ })
+                @Html.ValidationMessageFor(model => model.Corps, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AdresseLien, "Adresse du lien ", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AdresseLien, 
+                                    new { htmlAttributes = new { @class = "form-control", 
+                                                                 placeholder = "http://www.exemple.com/offre_speciale"} })
+                @Html.ValidationMessageFor(model => model.AdresseLien, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Envoyer la lettre" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+
+
+}
