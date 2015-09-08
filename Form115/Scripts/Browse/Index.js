@@ -19,6 +19,10 @@ function resizePartialViews() {
 function updateSearchResultpartialViews(data) {    
     $.each(data, function (idx, obj) {
 
+        //if ($('#partial_view_search_result' + idx).length == 0)
+        //{
+        //    $('#partial_view_search_result1').clone().class('#partial_view_search_result' + idx)
+        //}
         // Données de l'hotel
         $('#partial_view_search_result' + idx).find('h3.nom').html(obj.hotel.nom);
         $('#partial_view_search_result' + idx).find('p.ville').html(obj.hotel.ville);

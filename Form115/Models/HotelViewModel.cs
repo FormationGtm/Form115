@@ -12,10 +12,6 @@ namespace Form115.Models
 
         public int IdHotel { get; set; }
 
-        public int DureeMinSejour { get; set; }
-
-        public int? DureeMaxSejour { get; set; }
-
         public DateTime _dateDepart;
         public string DateDepart
         {
@@ -24,7 +20,7 @@ namespace Form115.Models
             {
                 if (value == "") { _dateDepart = DateTime.Now; }
                 else {
-                    string format = "dd/MM/yyyy";
+                    string format = "MM/dd/yyyy";
                     if (!DateTime.TryParseExact(value, format, CultureInfo.InvariantCulture,
                         DateTimeStyles.None, out _dateDepart))
                     {
@@ -33,6 +29,17 @@ namespace Form115.Models
                 }
             }
         }
+
+        public int DisponibiliteMax { get; set; }
+        public string Nav { get; set; }
+
+        public int[] DateIndifferente { get; set; }
+        public int? DateMarge { get; set; }
+        public byte? DureeMini { get; set; }
+        public byte? DureeMaxi { get; set; }
+        public int? PrixMini { get; set; }
+        public int? PrixMaxi { get; set; }
+        public int? NbPers { get; set; }
 
 
         // Gestion de l'affichage des séjours d'un hôtel sur une période
@@ -73,7 +80,7 @@ namespace Form115.Models
             }
         }
 
-        public int NbPers { get; set; }
+        // public int NbPers { get; set; }
 
     }
 }

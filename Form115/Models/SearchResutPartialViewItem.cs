@@ -10,5 +10,6 @@ namespace Form115.Models
     {
         public Hotels Hotel { get; set; }
         public List<Produits> Produits { get; set; }
+        public string Nav { get; set; }
     }
 }

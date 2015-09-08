@@ -7,7 +7,7 @@
             <p class="ville">@Model.Hotel.Villes.name</p>
             <p class="categorie">@Model.Hotel.Categorie.Value*</p>
             @*@Html.ActionLink("Voir les séjours", "Details", new { id = @Model.Item4, @class="id", controller = "Hotel" })*@
-            <a class="id btn-info btn-lg" href="/Hotel/Details/@Model.Hotel.IdHotel">Voir &raquo;</a>
+            <a class="id btn-info btn-lg" href="@String.Format("/Hotel/Details/{0}?nav={1}", Model.Hotel.IdHotel, Model.Nav)">Voir &raquo;</a>
         </div>
         <div class="col-xs-6">
             <img class="img-thumbnail" src="~/Areas/Admin/Uploads/@Model.Hotel.Photo" />

@@ -1,4 +1,4 @@
-﻿using BestCars.Infrastructure.SearchAnnonces;
+﻿
 using DataLayer.Models;
 using Form115.Models;
 using System;
@@ -9,7 +9,6 @@ using System.Web.Mvc;
 using Form115.Infrastructure.Search;
 using Form115.Infrastructure.Search.Base;
 using Form115.Infrastructure.Search.Options;
-using BestCars.Infrastructure.SearchAnnonces.Options;
 using System.Reflection;
 
 namespace Form115.Controllers
@@ -82,7 +81,7 @@ namespace Form115.Controllers
             s = new SearchOptionDestination(s, bvm.Continent, bvm.Region, bvm.Pays, bvm.Ville);
             s = new SearchOptionAPartirDAujourdHui(s);
             s = new SearchOptionNbPers(s, 1);
-            return OrderingGroupResult(s);
+            return OrderingGroupResult(s, "Browse");
         }
 
         public static List<SearchResutPartialViewItem> GetSearchResult(SearchViewModel svm)
@@ -110,10 +109,10 @@ namespace Form115.Controllers
             s = new SearchOptionPrixMin(s, svm.PrixMini);
 
             // Intégration de DateDepart > DateTime.Now ici car on n'est pas intéressé par un produit périmé
-            return OrderingGroupResult(s);
+            return OrderingGroupResult(s, "Search");
         }
 
-        internal static List<SearchResutPartialViewItem> OrderingGroupResult(SearchBase s)
+        internal static List<SearchResutPartialViewItem> OrderingGroupResult(SearchBase s, string nav)
         {
             Form115Entities db = new Form115Entities();
 
@@ -123,7 +122,8 @@ namespace Form115.Controllers
                              (key, g) => new SearchResutPartialViewItem
                              {
                                  Hotel = db.Hotels.Where(h => h.IdHotel == key).FirstOrDefault(),
-                                 Produits = g.ToList()
+                                 Produits = g.ToList(),
+                                 Nav = nav
                              })
                     .ToList();
         }

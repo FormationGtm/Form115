@@ -9,6 +9,9 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Form115.Infrastructure.Search.Base;
+using Form115.Infrastructure.Search;
+using Form115.Infrastructure.Search.Options;
 
 namespace Form115.Controllers
 {
@@ -32,13 +35,15 @@ namespace Form115.Controllers
         }
 
         [HotelTrackerFilter]
-        public ActionResult Details(int id)
+        public ActionResult Details(int id, string nav)
         {
             //Form115Entities db = new Form115Entities();
             //Hotels hotel = db.Hotels.Where(h => h.IdHotel == id).First();
             HotelViewModel hvm = new HotelViewModel
             {
-                IdHotel = id
+                IdHotel = id,
+                DisponibiliteMax = _db.Produits.Select(p => p.NbPlaces).Max(),
+                Nav = nav
             };
             return View(hvm);
         }
@@ -52,7 +57,8 @@ namespace Form115.Controllers
             {
                 IdHotel = id,
                 DateDebut = startDate,
-                DateFin = endDate
+                DateFin = endDate,
+                DisponibiliteMax = _db.Produits.Select(p => p.NbPlaces).Max()
             };
             return View("Details", hvm);
         }
@@ -61,31 +67,49 @@ namespace Form115.Controllers
         [HttpPost]
         public JsonResult listeProduits(HotelViewModel hvm)
         {
-            var prods = _db.Produits.Where(p => p.Sejours.IdHotel == hvm.IdHotel)
-                            .Where(p=>p.Sejours.Duree >= hvm.DureeMinSejour) ; 
-            // TODO Attention aux filtres concurents pour le dateDebut
-            if (hvm.DureeMaxSejour != null) {
-                prods = prods.Where(p=>p.Sejours.Duree<=hvm.DureeMaxSejour) ;         
-            }
-            if (hvm._dateDepart!=null) {
-                prods = prods.Where(p=>p.DateDepart >= hvm._dateDepart) ;
-            }
-            //if (hvm._dateDebut != null)
-            //{
-                prods = prods.Where(p => p.DateDepart >= hvm._dateDebut);
-            //}
-            ////if (hvm._dateFin != null)
-            //{
-                prods = prods.Where(p => p.DateDepart <= hvm._dateFin);
-            //}
-                if (hvm.NbPers >= 0)
+            SearchBase s = new Search();
+            if (hvm.DateIndifferente == null)
+            {
+                if (hvm.DateMarge == null)
                 {
-                    prods = prods.Where(p => ((p.NbPlaces - (p.Reservations.Count() != 0 ? p.Reservations.Sum(r => r.Quantity) : 0)) >= hvm.NbPers));
+                    s = new SearchOptionDateDepart(s, hvm._dateDepart, hvm._dateDepart);
                 }
+                else
+                {
+                    s = new SearchOptionDateDepart(s, hvm._dateDepart, hvm._dateDepart.AddDays((double)hvm.DateMarge));
+                }
+            }
+            s = new SearchOptionAPartirDAujourdHui(s);
+            // TODO Attention ici il peut n'y avoir qu'une seule renseignée
+            s = new SearchOptionDuree(s, hvm.DureeMini, hvm.DureeMaxi);
+            s = new SearchOptionNbPers(s, hvm.NbPers);
+            s = new SearchOptionPrixMax(s, hvm.PrixMaxi);
+            s = new SearchOptionPrixMin(s, hvm.PrixMini);
+            //var prods = _db.Produits.Where(p => p.Sejours.IdHotel == hvm.IdHotel)
+            //                .Where(p=>p.Sejours.Duree >= hvm.DureeMinSejour) ; 
+            //// TODO Attention aux filtres concurents pour le dateDebut
+            //if (hvm.DureeMaxSejour != null) {
+            //    prods = prods.Where(p=>p.Sejours.Duree<=hvm.DureeMaxSejour) ;         
+            //}
+            //if (hvm._dateDepart!=null) {
+            //    prods = prods.Where(p=>p.DateDepart >= hvm._dateDepart) ;
+            //}
+            ////if (hvm._dateDebut != null)
+            ////{
+            //    prods = prods.Where(p => p.DateDepart >= hvm._dateDebut);
+            ////}
+            //////if (hvm._dateFin != null)
+            ////{
+            //    prods = prods.Where(p => p.DateDepart <= hvm._dateFin);
+            ////}
+            //    if (hvm.NbPers >= 0)
+            //    {
+            //        prods = prods.Where(p => ((p.NbPlaces - (p.Reservations.Count() != 0 ? p.Reservations.Sum(r => r.Quantity) : 0)) >= hvm.NbPers));
+            //    }
 
             // HACK AsEnumerable avant le select ? Sinon ATTENTION, le nb_restants ne sera
             // pas à jour pour les prouits n'ayant pas de réservation, nécessite opérateur ternaire poutr jointure externe
-            var result = prods.AsEnumerable().Select(p => new {
+            var result = s.GetResult().AsEnumerable().Select(p => new {
                                 date = p.DateDepart.ToString("dd/MM/yyyy"), 
                                 duree = p.Sejours.Duree,
                                 prix = p.Prix, 

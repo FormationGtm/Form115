@@ -61,8 +61,11 @@
             {
                 <input type="hidden" name="DateFin" />
             }
+            <input type="hidden" name="Nav" value="@Model.Nav"/>
 
-            <p>
+            @Html.Partial("_SearchCommonOptionsPartialView")
+
+            @*<p>
                 Durée du séjour : entre
                 <input type="number" name="DureeMinSejour" style="width:5em" />
                 et
@@ -72,7 +75,7 @@
                     <option value="1">1</option>
                     <option value="2">2</option>
                 </select>
-            </p>
+            </p>*@
 
             @*@{var nb_durees = @hotel.Sejours.Count();}
 
@@ -84,7 +87,7 @@
                     }
                 </ul>*@
 
-            <p>À partir du : <input type="text" name="DateDepart" id="champDateDepart" /></p>
+            @*<p>À partir du : <input type="text" name="DateDepart" id="champDateDepart" /></p>*@
 
 
             @{ var sejour = @hotel.Sejours.First();}

@@ -1,6 +1,6 @@
 ﻿$(function () {
-    $("#champDateDepart").datepicker({
-        format: "dd/mm/yyyy",
+    $("#DateDepart").datepicker({
+        format: "mm/dd/yyyy",
         todayBtn: "linked",
         language: "fr",
         autoclose: true,
@@ -8,7 +8,9 @@
         minDate: "0" // A reprendre
     });
 
-    loadSearchParams();
+    if ($("input[name=Nav]").val() == "Search") {
+        loadSearchParams();
+    }
 
     $("input").change(chargerListeProduits);
     $("select").change(chargerListeProduits);
@@ -21,7 +23,7 @@
         var formulaireId = "FormulaireReponse-" + commentaireId;
         $("#FormulaireCommentaire").clone().appendTo($(this).parent()).attr("id", formulaireId);
         $('#' + formulaireId).find('input[name="IdCommentaire"]').attr('value', commentaireId)
-        $(this).attr('hidden','true')
+        $(this).attr('hidden', 'true')
         return false;
     });
 })
@@ -31,12 +33,20 @@ function chargerListeProduits() {
     var tbodyListeProduits = $("#tbodyListeProduits");
     var obj = {
         IdHotel: $("[name=IdHotel]").val(),
-        DateDepart: $("[name=DateDepart]").val(),
-        DureeMinSejour: $("[name=DureeMinSejour]").val(),
-        DureeMaxSejour: $("[name=DureeMaxSejour]").val(),
-        DateDebut: $("[name=DateDebut]").val(),
-        DateFin: $("[name=DateFin]").val(),
-        NbPers: $("[name=NbPers]").find(":selected").val(),
+        // DateDepart: $("[name=DateDepart]").val(),
+        // DureeMinSejour: $("[name=DureeMinSejour]").val(),
+        // DureeMaxSejour: $("[name=DureeMaxSejour]").val(),
+        // DateDebut: $("[name=DateDebut]").val(),
+        // DateFin: $("[name=DateFin]").val(),
+        // NbPers: $("[name=NbPers]").find(":selected").val(),
+        DateIndifferente: $("#DateIndifferente:checked").val(),
+        DateDepart: $("#DateDepart").val(),
+        DateMarge: $("input[name=DateMarge]:checked").val(),
+        DureeMini: $("#DureeMini").val(),
+        DureeMaxi: $("#DureeMaxi").val(),
+        PrixMini: $("#PrixMini").val(),
+        PrixMaxi: $("#PrixMaxi").val(),
+        NbPers: $("#NbPers").find(":selected").val()
     };
     console.log(obj);
     $.post(
@@ -62,7 +72,7 @@ function chargerListeProduits() {
                         str += "<td style='text-align:right'><s>" + item.prix + '€</s> <span class="text-info">' + item.prixSolde + "€</span> </td>";
                     }
                     str += "<td style='text-align:right'>" + item.nb_restants + "</td>";
-                    str += "<td style='text-align:right'>" + obj.NbPers+ "</td>";
+                    str += "<td style='text-align:right'>" + obj.NbPers + "</td>";
                     str += "<td><a class='btn btn-info btn-lg' href='/Reservations/Reserver/" + item.sejour + "?quantite=" + obj.NbPers + "'>Réserver</a></td>";
                     str += "</tr>";
                 });
@@ -71,18 +81,54 @@ function chargerListeProduits() {
             }
         }
     );
+    $("input[name=DateIndifferente]:checkbox").change(setDateAbility)
 }
 
 function loadSearchParams() {
-    var DateDepart = sessionStorage.getItem("DateDepart");
-    var Duree = sessionStorage.getItem("Duree");
-    //var NbPers = sessionStorage.getItem(NbPers);
+    var DateIndifferente = sessionStorage.getItem("Search_DateIndifferente");
+    var DateDepart = sessionStorage.getItem("Search_DateDepart");
+    var DateMarge = sessionStorage.getItem("Search_DateMarge");
+    var DureeMini = sessionStorage.getItem("Search_DureeMini");
+    var DureeMaxi = sessionStorage.getItem("Search_DureeMaxi");
+    var PrixMini = sessionStorage.getItem("Search_PrixMini");
+    var PrixMaxi = sessionStorage.getItem("Search_PrixMaxi");
+    var NbPers = sessionStorage.getItem("Search_NbPers");
+    //var DisponibiliteMax = sessionStorage.getItem("Search_DisponibiliteMax");
+    var Categories = sessionStorage.getItem("Search_Categories");
 
-    var DureeMin = (Duree != null) ? Math.max(1, Duree - 2) : 1;
-    var DureeMax = (Duree != null) ? parseInt(Duree) + 2 : null;
-
-    $("[name=DateDepart]").val(DateDepart);
-    $("[name=DureeMinSejour]").val(DureeMin) ;
-    $("[name=DureeMaxSejour]").val(DureeMax);
+    if (typeof DateIndifferente !== null) {
+        $("#DateIndifferente:checked").val(DateIndifferente);
+    }
+    if (typeof DateDepart !== "undefined") {
+        $("#DateDepart").val(DateDepart);
+    }
+    if (typeof DateMarge !== "undefined") {
+        $('input[name=DateMarge][value="' + DateMarge + '"').prop('checked', true);
+    }
+    if (typeof DureeMini !== "undefined") {
+        $("#DureeMini").val(DureeMini);
+    }
+    if (typeof DureeMaxi !== "undefined") {
+        $("#DureeMaxi").val(DureeMaxi);
+    }
+    if (typeof PrixMini !== "undefined") {
+        $("#PrixMini").val(PrixMini);
+    }
+    if (typeof PrixMaxi !== "undefined") {
+        $("#PrixMaxi").val(PrixMaxi);
+    }
+    if (typeof NbPers !== "undefined") {
+        $("#NbPers").val(NbPers);
+    }
 }
 
+function setDateAbility() {
+    if ($("input[name=DateIndifferente]:checked").length == 0) {
+        $("input[name=DateDepart]").prop("disabled", false);
+        $("input[name=DateMarge]").prop("disabled", false);
+    }
+    else {
+        $("input[name=DateDepart]").prop("disabled", true);
+        $("input[name=DateMarge]").prop("disabled", true);
+    }
+}

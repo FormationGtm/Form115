@@ -104,5 +104,46 @@ namespace Form115.Controllers
                                         .Take(2).ToList(), JsonRequestBehavior.AllowGet);
 
         }
+
+        public JsonResult GetJsonHotels(int continent, int region, string pays, int ville)
+        {
+            var bvm = new BrowseViewModel
+            {
+                Continent = continent,
+                Region = region,
+                Pays = pays,
+                Ville = ville
+            };
+
+
+            // TODO change to SearchResutPartialViewItem serializé ??
+            return Json(SearchController.GetSearchResult(bvm)
+                                        .OrderByDescending(o => o.Hotel.NbReservations)
+                                        .Select(o => new
+                                        {
+                                            hotel = new
+                                            {
+                                                nom = o.Hotel.Nom,
+                                                ville = o.Hotel.Villes.name.Trim(),
+                                                categorie = o.Hotel.Categorie.Value,
+                                                photo = o.Hotel.Photo,
+                                                id = o.Hotel.IdHotel
+                                            },
+                                            produits = o.Produits
+                                                         .Select(p => new
+                                                         {
+                                                             dateDepart = p.DateDepart.ToString("dd/MM/yyyy"),
+                                                             prix = p.Promotion == 0 ? p.Prix : p.PrixSolde,
+                                                             duree = p.Sejours.Duree
+                                                         })
+                                                         .OrderBy(op => op.prix)
+                                        }
+                                               )
+                                        .ToList(), JsonRequestBehavior.AllowGet);
+
+        }
+
     }
+
+
 }

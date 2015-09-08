@@ -7,54 +7,24 @@
         <div class="form-group col-sm-6">
 
             <div class="form-group col-xs-12">
-                @{
-                    if (Model.DateIndifferente == null || Model.DateIndifferente.Length == 0)
-                    {
+                
                         <input type="checkbox" id="DateIndifferente" name="DateIndifferente" value="1" checked="checked" />
                         <label for="1" class="">Datte indifférente</label>
                         <div class="form-group">
                             <label for="DateDepart">Date de départ</label>
-                            <input id="DateDepart" class="form-control" name="DateDepart" value="@Model.DateDepart.ToShortDateString()" disabled />
+                            <input id="DateDepart" class="form-control" name="DateDepart" disabled />
                         </div>
                         <label for="DateMarge">Marge</label>
                         <input type="radio" class="form-inline" name="DateMarge" value="5" disabled /><text>5j</text>
                         <input type="radio" class="form-inline" name="DateMarge" value="15" disabled /><text>15j</text>
-                    }
-                    else
-                    {
-                        <input type="checkbox" name="DateIndifferente" value="1" id="DateIndifferente" />
-                        <label for="1" class="">Datte indifférente</label>
-                        <div class="form-group">
-
-                            <label for="DateDepart">Date de départ</label>
-                            <input id="DateDepart" class="form-control" name="DateDepart" value="@Model.DateDepart.ToShortDateString()" />
-                        </div>
-                        <label for="DateMarge">Marge</label>
-                        if (Model.DateMarge != null && Model.DateMarge == 5)
-                        {
-                            <input type="radio" class="form-inline" name="DateMarge" value="5" checked /><text>5j</text>
-                            <input type="radio" class="form-inline" name="DateMarge" value="15" /><text>15j</text>
-                        }
-                        else if (Model.DateMarge != null && Model.DateMarge == 15)
-                        {
-                            <input type="radio" class="form-inline" name="DateMarge" value="5" /><text>5j</text>
-                            <input type="radio" class="form-inline" name="DateMarge" value="15" checked /><text>15j</text>
-                        }
-                        else
-                        {
-                            <input type="radio" class="form-inline" name="DateMarge" value="5" /><text>5j</text>
-                            <input type="radio" class="form-inline" name="DateMarge" value="15" /><text>15j</text>
-                        }
-
-                    }
-                }
+                  
             </div>
         </div>
 
         <div class="form-group col-sm-6">
             <label for="Duree">Durée du séjour (jours)</label>
-            <input type="number" id="DureeMini" class="form-control" name="DureeMini" placeholder="Durée minimum" value="@Model.DureeMini" />
-            <input type="number" id="DureeMaxi" class="form-control" name="DureeMaxi" placeholder="Durée maximum" value="@Model.DureeMaxi" />
+            <input type="number" id="DureeMini" class="form-control" name="DureeMini" placeholder="Durée minimum" />
+            <input type="number" id="DureeMaxi" class="form-control" name="DureeMaxi" placeholder="Durée maximum" />
         </div>
     </div>
 
@@ -64,8 +34,8 @@
         @*<input type="hidden" id="prixMaxSlider" value="@ViewBag.PrixMaxSlider" />*@
         <div class="form-group col-sm-6">
             <label>Tranche de prix</label>
-            <input type="number" id="PrixMini" name="PrixMini" class="form-control" placeholder="Prix minimum" value="@Model.PrixMini" />
-            <input type="number" id="PrixMaxi" name="PrixMaxi" class="form-control" placeholder="Prix maximum" value="@Model.PrixMaxi" />
+            <input type="number" id="PrixMini" name="PrixMini" class="form-control" placeholder="Prix minimum"  />
+            <input type="number" id="PrixMaxi" name="PrixMaxi" class="form-control" placeholder="Prix maximum"/>
             @*<div id="Prix" class="col-sm-12"></div>*@
         </div>
 
@@ -73,18 +43,10 @@
         <div class="form-group col-sm-6">
             <label>Nombre de personnes</label>
             <select name="NbPers" id="NbPers" class="form-control">
-                @for (int i = 1; i <= Model.DisponibiliteMax; i++)
-                {
-                    if (Model.NbPers == i)
-                    {
-                        <option value="@i" selected>@i</option>
-                    }
-                    else
-                    {
+                @for (int i = 1; i <= Model.DisponibiliteMax; i++) { 
                         <option value="@i">@i</option>
                     }
-                }
-            </select>
+               </select>
         </div>
 
 
