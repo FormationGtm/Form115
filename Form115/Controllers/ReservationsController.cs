@@ -20,7 +20,8 @@ namespace Form115.Controllers
 
             if ((verif.NbPlaces-qteRes) - quantite >= 0)
             {
-                var result=new Tuple<int,int>(id,quantite);
+               
+                var result=new Tuple<int,Produits>(quantite,verif);
                 return View("Reserver",result);
             }
             else

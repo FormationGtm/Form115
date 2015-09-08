@@ -1,15 +1,65 @@
 ﻿@using DataLayer.Models
-@Model 
+@model Tuple<int,Produits>
 @{
     ViewBag.Title = "Reserver";
 }
 
+<style>
+
+
+    
+</style>
+
+
 <h2>Réservation</h2>
 
-<div class="form-group col-sm-4 glyphicon-check">
-    fdfffd
+<div class="form-group col-sm-10 ">
+    <span ></span>
+    <h4>Vous êtes sur le point de réserver le produit suivant:</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Nom de l'hôtel
+        </dt>
 
+        <dd>
+            @Model.Item2.Sejours.Hotels.Nom
+        </dd>
 
+        <dt>
+            Destinations
+        </dt>
+
+        <dd>
+            @Model.Item2.Sejours.Hotels.Villes.name - @Model.Item2.Sejours.Hotels.Villes.Pays.Name
+        </dd>
+        <dt>
+            Catégorie
+        </dt>
+
+        <dd>
+            @Model.Item2.Sejours.Hotels.Categories.IdCategorie*
+        </dd>
+
+        <dt>
+            Nombre de personnes participant au voyage:
+        </dt>
+
+        <dd>
+            @Model.Item1 personne(s)
+        </dd>
+
+        
+    </dl>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-action">
+            <input type="submit" value="Je confirme" class="btn-info btn-lg" /> |
+            @Html.ActionLink("Retour aux résultats","Result","Search", @Model.Item2.IdSejour,null)
+        </div>
+    }
 
     
 
