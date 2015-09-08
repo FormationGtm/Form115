@@ -11,11 +11,11 @@
 
 <p id="BreadCrumb">Parcourir le catalogue >> Continents</p>
 
-<p id="texteChoix">Choix du continent</p>
+<h2 id="texteChoix">Choix du continent</h2>
 <ul id="listeChoix">
     @foreach (var continent in Model.ListeContinents)
     {
-        <li><a class="Continents" href="#" id="@continent.Key">@continent.Value</a></li>
+        <li><a class="Continents btn-info li-browse" href="#" id="@continent.Key">@continent.Value</a></li>
     }
 </ul>
 @{
@@ -24,7 +24,7 @@
     {
         <text><div class="col-sm-6" id="@String.Format("partial_view_search_result{0}",cpt)">
 
-    @Html.Action("PartialSearchResult", "Search", new {srpvi = item });
+    @Html.Action("PartialSearchResult", "Search", new {srpvi = item })
 </div></text>
         cpt++;
     }

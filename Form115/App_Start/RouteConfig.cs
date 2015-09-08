@@ -18,20 +18,12 @@ namespace Form115
                 "Hotel/Details/{id}/{startDate}/{endDate}",       // URL with parameters
                 new { controller = "Hotel", action = "DetailsPeriode" }  // Parameter defaults
             );
-
-            routes.MapRoute("Promotions", "Promotions/{action}/{id}",
-            new { controller = "Promotions", action = "Index", id = UrlParameter.Optional },
-            new[] { "Form115.Controllers" });
-
-
-            routes.MapRoute("Home", "Home/{action}/{id}",
-            new { controller = "Home", action = "Index", id = UrlParameter.Optional },
-            new[] { "Form115.Controllers" });
-
+            
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional},
+                namespaces : new[] { "Form115.Controllers" }
             );
         }
     }

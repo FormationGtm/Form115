@@ -4,18 +4,22 @@
     ViewBag.Title = "Result";
 }
 
+@section scripts {
+    <script src="~/Scripts/Search/Result.js"></script>
+}
+
 <h2>Résultats de la recherche</h2>
 @if (ViewBag.ListResults.Count == 0)
 {
     <p>Nous n'avons malheureusement pas d'offre correspondant à votre recherche.</p>
 }
 <p><button class="btn-info btn-lg" form="hidden-form-searchoptions" formaction="Index" formmethod="post">Revenir à la recherche &raquo;</button></p>
-@foreach (var item in (List < Form115.Models.SearchResutPartialViewItem >)ViewBag.ListResults)
+@foreach (var item in (List<Form115.Models.SearchResutPartialViewItem>)ViewBag.ListResults)
 {
-    <div class="col-sm-6">
+    <div class="col-md-6">
         @Html.Action("PartialSearchResult", "Search", new { srpvi = item })
         @* id = item.Hotel.IdHotel, produits = item.Produits.Select(p => p.IdProduit).ToArray()*@
-        
+
     </div>
 }
 

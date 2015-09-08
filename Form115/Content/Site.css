@@ -321,3 +321,39 @@ th{
 .colp-date{
     text-align: center;
 }
+
+.li-browse {
+    padding-left : 2ex;
+    padding-right : 2ex;
+    padding-top : 1ex;
+    padding-bottom : 1ex;
+    border-top-left-radius: 6px;
+}
+
+.CommentaireDiv {
+    border-width: 2px;
+    border-color: #3e6376;
+    border-style: solid;
+    border-radius:6px;
+}
+
+.Commentaire {
+    padding: 1em;
+}
+
+.Commentaire h5.TitreCommentaire {
+    color: #66A3C2;
+    display: inline;
+}
+
+.Commentaire .AuteurCommentaire {
+    text-decoration:wavy;
+    color: #3e6376;
+}
+
+.clear{
+  clear: both;
+  display: block;  
+  content: "";
+  width: 100%;  
+}
