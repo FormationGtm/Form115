@@ -1,9 +1,11 @@
 ﻿using DataLayer.Models;
+using Form115.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace Form115.Controllers
 {
@@ -28,6 +30,29 @@ namespace Form115.Controllers
             {
                 return View("ReserverImpossible");
             }
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult ConfirmerReservation(ReservationViewModel rvm)
+        {
+            //récupérer l'identifiant utilisateur de la personne connectée
+            
+            var user=db.Utilisateurs.Where(i=> i.IdAspNetUsers==rvm.IdUtilisateur).Select(x=>x.IdUtilisateur).FirstOrDefault();
+
+            var ajout = new Reservations{
+                IdProduit=rvm.IdProduit,
+                Quantity=rvm.Quantity,
+                IdUtilisateur=user,
+                DateReservation=DateTime.Now
+               
+            };
+            db.Reservations.Add(ajout);
+                        
+
+            db.SaveChanges();
+
+            return View("Confirmation", rvm);
         }
     }
 }
