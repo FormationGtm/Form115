@@ -14,9 +14,15 @@
                 </li>
                 @{var idAspNetUser = User.Identity.GetUserId() ;
                   var utilisateur = (new Form115Entities()).Utilisateurs.Where(u => u.IdAspNetUsers == idAspNetUser).FirstOrDefault();}
-                @if (utilisateur.EstClient) {
+                @if (utilisateur.EstClient)
+                {
                     <li>
                         <span class="promo_haut_droite">Avantage fidélité : -@utilisateur.getReducBase()% sur votre prochain voyage !</span>
+                    </li>
+                }
+                @if (utilisateur.EstAdmin) {
+                    <li>
+                        <span class="promo_haut_droite"><a href="/Admin/Home/Index">Admin</a></span>
                     </li>
                 }
                 else

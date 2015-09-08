@@ -20,6 +20,14 @@ namespace DataLayer.Models
             }
         }
 
+        public bool EstAdmin
+        {
+            get
+            {
+                return AspNetUsers.AspNetRoles.Where(r=>r.Name=="Admin").Any() ;
+            }
+        }
+
         public int getReducBase()
         {
             if (Reservations
