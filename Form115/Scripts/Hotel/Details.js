@@ -63,7 +63,7 @@ function chargerListeProduits() {
                     }
                     str += "<td style='text-align:right'>" + item.nb_restants + "</td>";
                     str += "<td style='text-align:right'>" + obj.NbPers+ "</td>";
-                    str += "<td class='btn btn-info'><a href='/Reservations/Reserver/"+item.sejour+"?quantite="+obj.NbPers +"'>Réserver</a></td>";
+                    str += "<td><a class='btn btn-info btn-lg' href='/Reservations/Reserver/" + item.sejour + "?quantite=" + obj.NbPers + "'>Réserver</a></td>";
                     str += "</tr>";
                 });
                 console.log("each exécuté.")
