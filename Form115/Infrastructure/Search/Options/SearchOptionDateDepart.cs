@@ -11,17 +11,19 @@
     #endregion
 
     internal class SearchOptionDateDepart : SearchOption {
-        private readonly DateTime _dateDepart;
+        private readonly DateTime _dateDebut;
+        private readonly DateTime _dateFin;
 
-        public SearchOptionDateDepart(SearchBase sb, DateTime dateDepart)
+        public SearchOptionDateDepart(SearchBase sb, DateTime dateDebut, DateTime dateFin)
             : base(sb) {
-                _dateDepart = dateDepart;
+                _dateDebut = dateDebut;
+                _dateFin = dateFin;
         }
 
         public override IEnumerable<Produits> GetResult()
         {
             return SearchBase.GetResult()
-                            .Where(p => Math.Abs((p.DateDepart - _dateDepart).TotalDays) <= 10);
+                            .Where(p => p.DateDepart >= _dateDebut && p.DateDepart <= _dateFin);
         }
     }
 }

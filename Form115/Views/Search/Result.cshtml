@@ -1,5 +1,5 @@
 ﻿@using Form115.Models;
-@model SearchViewModel
+@model List<Form115.Models.SearchResutPartialViewItem>
 @{
     ViewBag.Title = "Result";
 }
@@ -9,12 +9,13 @@
 }
 
 <h2>Résultats de la recherche</h2>
-@if (ViewBag.ListResults.Count == 0)
+@if (Model.Count == 0)
 {
     <p>Nous n'avons malheureusement pas d'offre correspondant à votre recherche.</p>
 }
-<p><button class="btn-info btn-lg" form="hidden-form-searchoptions" formaction="Index" formmethod="post">Revenir à la recherche &raquo;</button></p>
-@foreach (var item in (List<Form115.Models.SearchResutPartialViewItem>)ViewBag.ListResults)
+<p><a class="btn-info btn-lg" href="~/Search/Index/">Revenir à la recherche &raquo;</a></p>
+@*<button class="btn-info btn-lg" form="hidden-form-searchoptions" formaction="Index" formmethod="post">Revenir à la recherche &raquo;</button>*@
+@foreach (var item in Model)
 {
     <div class="col-md-6">
         @Html.Action("PartialSearchResult", "Search", new { srpvi = item })
@@ -23,8 +24,8 @@
     </div>
 }
 
-@using (Html.BeginForm("Index", "Search", FormMethod.Post, new { @class = "specific-form", hidden = "hidden", id = "hidden-form-searchoptions" })) // , new { svm = Model, page = 1}
+@*@using (Html.BeginForm("Index", "Search", FormMethod.Post, new { @class = "specific-form", hidden = "hidden", id = "hidden-form-searchoptions" }))// , new { svm = Model, page = 1}
 {
     @Html.Partial("_SearchCommonOptionsPartialView")
-}
+}*@
 

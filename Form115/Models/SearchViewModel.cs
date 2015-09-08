@@ -12,6 +12,7 @@ namespace Form115.Models
         // TODO validation de formulaire
         public DateTime DateDepart { get; set; }
         public int[] DateIndifferente { get; set; }
+        public int? DateMarge { get; set; }
         public byte? DureeMini { get; set; }
         public byte? DureeMaxi { get; set; }
         public int? PrixMini { get; set; }

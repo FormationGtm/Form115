@@ -10,6 +10,7 @@ using Form115.Infrastructure.Search;
 using Form115.Infrastructure.Search.Base;
 using Form115.Infrastructure.Search.Options;
 using BestCars.Infrastructure.SearchAnnonces.Options;
+using System.Reflection;
 
 namespace Form115.Controllers
 {
@@ -24,28 +25,26 @@ namespace Form115.Controllers
             // TODO classe Categorie qui renverra la liste des catégories (méthode statique)
             svm.ListeCategories = _db.Categories.Select(c => new { Key = c.IdCategorie, Value = c.Description }).ToDictionary(x => x.Key, x => x.Value);
             svm.DisponibiliteMax = _db.Produits.Select(p => p.NbPlaces).Max();
-            svm.DisponibiliteMax = 20;
             svm.DureeMini = _db.Produits.Select(p => p.Sejours.Duree).Min();
             svm.DureeMaxi = _db.Produits.Select(p => p.Sejours.Duree).Max();
             svm.PrixMini = (int)Math.Floor((double)_db.Produits.Select(p => p.Prix).Min());
             svm.PrixMaxi = (int)Math.Ceiling((double)_db.Produits.Select(p => p.Prix).Max());
             svm.DateDepart = DateTime.Now;
+            svm.DateIndifferente = new int[] { 1 };
 
             return View(svm);
         }
 
-        [HttpPost]
-        public ActionResult Index(SearchViewModel svm)
-        {
-            // TODO classe Categorie qui renverra la liste des catégories (méthode statique)
-            svm.ListeCategories = _db.Categories.Select(c => new { Key = c.IdCategorie, Value = c.Description }).ToDictionary(x => x.Key, x => x.Value);
-            svm.DisponibiliteMax = _db.Produits.Select(p => p.NbPlaces).Max();
+        //[HttpPost]
+        //public ActionResult Index(SearchViewModel svm)
+        //{
+        //    // TODO classe Categorie qui renverra la liste des catégories (méthode statique)
+        //    svm.ListeCategories = _db.Categories.Select(c => new { Key = c.IdCategorie, Value = c.Description }).ToDictionary(x => x.Key, x => x.Value);
+        //    svm.DisponibiliteMax = _db.Produits.Select(p => p.NbPlaces).Max();
+        //    return View(svm);
+        //}
 
-            return View(svm);
-        }
-
-
-
+      
         public ActionResult Result(int id)
         {
             var svm = new SearchViewModel { Ville = id, DateIndifferente = new int[] {1} };
@@ -73,8 +72,8 @@ namespace Form115.Controllers
             //    XmlSearchViewModel = svm.SerializeSearchViewModel()
             //};
             //return View(rvm);// l.Select(v => new {v.IdVoiture, v.TypeVendeur, v.NumDep, v.Prix}
-            ViewBag.ListResults = result;
-            return View(svm);
+            //ViewBag.ListResults = result;
+            return View(result);
         }
 
         public static List<SearchResutPartialViewItem> GetSearchResult(BrowseViewModel bvm)
@@ -93,7 +92,14 @@ namespace Form115.Controllers
             s = new SearchOptionDestination(s, svm.Continent, svm.Region, svm.Pays, svm.Ville);
             if (svm.DateIndifferente == null)
             {
-                s = new SearchOptionDateDepart(s, svm.DateDepart);
+                if (svm.DateMarge == null)
+                {
+                    s = new SearchOptionDateDepart(s, svm.DateDepart, svm.DateDepart);
+                }
+                else
+                {
+                    s = new SearchOptionDateDepart(s, svm.DateDepart, svm.DateDepart.AddDays((double)svm.DateMarge));
+                }
             }
             s = new SearchOptionAPartirDAujourdHui(s);
             // TODO Attention ici il peut n'y avoir qu'une seule renseignée

@@ -3,6 +3,8 @@
     $("#listeRegions").change(loadPays);
     $("#listePays").change(loadVilles);
 
+    loadPreviousSearchParams();
+
     $("#SearchBtn").click(saveSearchOptions);
 
     // DateTimePicker
@@ -15,8 +17,20 @@
         minDate: "+1d"
     });
 
+    $("input[name=DateIndifferente]:checkbox").change(setDateAbility)
 });
 
+
+function setDateAbility() {
+    if ($("input[name=DateIndifferente]:checked").length == 0) {
+        $("input[name=DateDepart]").prop("disabled", false);
+        $("input[name=DateMarge]").prop("disabled", false);
+    }
+    else {
+        $("input[name=DateDepart]").prop("disabled", true);
+        $("input[name=DateMarge]").prop("disabled", true);
+    }
+}
 
 function loadRegions() {
     IdContinent = $("#listeContinents").val();
@@ -37,8 +51,7 @@ function loadRegions() {
             $("#listeRegions").val('0');
         });
     }
-    else
-    {
+    else {
         $("#listeRegions").html(str);
         $("#listeRegions").val('0');
         $("#listeRegions").prop('disabled', true);
@@ -52,8 +65,7 @@ function loadRegions() {
 function loadPays() {
     IdRegion = $("#listeRegions").val();
     var str = '<option value="0">Sélectionner un pays</option>';
-    if (IdRegion != 0)
-    {
+    if (IdRegion != 0) {
         $.getJSON("/Browse/GetJSONPays/" + IdRegion, function (data) {
 
             // $.each(data, function (idx, mar) {
@@ -106,14 +118,117 @@ function loadVilles() {
 }
 
 function saveSearchOptions() {
-    // IdContinent = $("#listeContinents").val();
-    // IdRegion = $("#listeRegions").val();
-    // IdPays = $("#listePays").val();
-    // IdVille = $("#listeVille").val();
+    var IdContinent = $("#listeContinents").val();
+    var IdRegion = $("#listeRegions").val();
+    var IdPays = $("#listePays").val();
+    var IdVille = $("#listeVilles").val();
+    var DateIndifferente = $("#DateIndifferente:checked").val();
     var DateDepart = $("#DateDepart").val();
-    var Duree = $("#Duree").val();
-    var NbPers = $("#NbPers").val();
-    sessionStorage.setItem("DateDepart", DateDepart);
-    sessionStorage.setItem("Duree", Duree);
-    sessionStorage.setItem("NbPers", NbPers);
+    var DateMarge = $("input[name=DateMarge]:checked").val();
+    var DureeMini = $("#DureeMini").val();
+    var DureeMaxi = $("#DureeMaxi").val();
+    var PrixMini = $("#PrixMini").val();
+    var PrixMaxi = $("#PrixMaxi").val();
+    var NbPers = $("#NbPers").find(":selected").val();
+    //var DisponibiliteMax = Math.max.apply(null,$("#NbPers:selected").each(function (i, selected) {
+    //    Categories[i] = $(selected).val();
+    //});
+    var Categories = [];
+    $("input[name=Categorie]:checked").each(function (i, selected) {
+        Categories[i] = $(selected).val();
+    });
+    sessionStorage.setItem("Search_IdContinent", IdContinent);
+    sessionStorage.setItem("Search_IdRegion", IdRegion);
+    sessionStorage.setItem("Search_IdPays", IdPays);
+    sessionStorage.setItem("Search_IdVille", IdVille);
+    sessionStorage.setItem("Search_DateIndifferente", DateIndifferente);
+    sessionStorage.setItem("Search_DateDepart", DateDepart);
+    sessionStorage.setItem("Search_DateMarge", DateMarge);
+    sessionStorage.setItem("Search_DureeMini", DureeMini);
+    sessionStorage.setItem("Search_DureeMaxi", DureeMaxi);
+    sessionStorage.setItem("Search_PrixMini", PrixMini);
+    sessionStorage.setItem("Search_PrixMaxi", PrixMaxi);
+    sessionStorage.setItem("Search_NbPers", NbPers);
+    //sessionStorage.setItem("Search_DisponibiliteMax", DisponibiliteMax);
+    sessionStorage.setItem("Search_Categories", Categories);
+}
+
+function loadPreviousSearchParams() {
+    var IdContinent = sessionStorage.getItem("Search_IdContinent");
+    var IdRegion = sessionStorage.getItem("Search_IdRegion");
+    var IdPays = sessionStorage.getItem("Search_IdPays");
+    var IdVille = sessionStorage.getItem("Search_IdVille");
+    var DateIndifferente = sessionStorage.getItem("Search_DateIndifferente");
+    var DateDepart = sessionStorage.getItem("Search_DateDepart");
+    var DateMarge = sessionStorage.getItem("Search_DateMarge");
+    var DureeMini = sessionStorage.getItem("Search_DureeMini");
+    var DureeMaxi = sessionStorage.getItem("Search_DureeMaxi");
+    var PrixMini = sessionStorage.getItem("Search_PrixMini");
+    var PrixMaxi = sessionStorage.getItem("Search_PrixMaxi");
+    var NbPers = sessionStorage.getItem("Search_NbPers");
+    //var DisponibiliteMax = sessionStorage.getItem("Search_DisponibiliteMax");
+    var Categories = sessionStorage.getItem("Search_Categories");
+
+
+    if (IdContinent === null) {
+        $("#listeContinents").val(0);
+    }
+    else {
+        $("#listeContinents").val(IdContinent);
+        if (typeof IdContinent != 0) {
+            loadRegions();
+        }
+    }
+    if (IdRegion === null) {
+        $("#listeRegions").val(0);
+    }
+    else {
+        $("#listeRegions").val(IdRegion);
+        if (typeof IdRegion != 0) {
+            loadPays();
+        }
+    }
+    if (IdPays === null) {
+        $("#listePays").val(0);
+    }
+    else {
+        $("#listePays").val(IdPays);
+        if (typeof IdPays != 0) {
+            loadVilles();
+        }
+    }
+    if (IdVille === null) {
+        $("#listeVilles").val(0);
+    }
+    else {
+        $("#listeVilles").val(IdVille);
+    }
+    if (typeof DateIndifferente !== null) {
+        $("#DateIndifferente:checked").val(DateIndifferente);
+    }
+    if (typeof DateDepart !== "undefined") {
+        $("#DateDepart").val(DateDepart);
+    }
+    if (typeof DateMarge !== "undefined") {
+        $('input[name=DateMarge][value="' + DateMarge + '"').prop('checked', true);
+    }
+    if (typeof DureeMini !== "undefined") {
+        $("#DureeMini").val(DureeMini);
+    }
+    if (typeof DureeMaxi !== "undefined") {
+        $("#DureeMaxi").val(DureeMaxi);
+    }
+    if (typeof PrixMini !== "undefined") {
+        $("#PrixMini").val(PrixMini);
+    }
+    if (typeof PrixMaxi !== "undefined") {
+        $("#PrixMaxi").val(PrixMaxi);
+    }
+    if (typeof NbPers !== "undefined") {
+        $("#NbPers").val(NbPers);
+    }
+    //if (typeof Categories !== "undefined") {
+    //    $("input[name=Categorie]:checked").val(Categories.split(","));
+    //}
+
 }
