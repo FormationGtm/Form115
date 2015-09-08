@@ -17,12 +17,11 @@ namespace Form115.Controllers
     {
         private Form115Entities db = new Form115Entities();
 
-        // GET: api/HotelsApi/5
+        // GET: api/HotelsApi/
         [ResponseType(typeof(Hotels))]
         public IHttpActionResult GetHotels()
         {
 
-            var db = new Form115Entities() ;
             var meilleurePromo = db.Promotions.OrderByDescending(p=>p.Valeur).FirstOrDefault() ;
             if (meilleurePromo == null)
             {
@@ -35,8 +34,10 @@ namespace Form115.Controllers
                 Localisation = hotel.Villes.name,
                 Prix = db.Produits.Where(p=>p.Sejours.IdHotel==hotel.IdHotel).Where(p=>p.DateDepart>=meilleurePromo.DateDebut).First().Prix.ToString(),
                 Description = hotel.Description,
-                Image = "http://form115.dlucazeau.fr/Admin/Uploads/"+hotel.Photo,
-                URL = "http://form115.dlucazeau.fr/Hotel/Details/"+hotel.IdHotel
+                //Image = "http://form115.dlucazeau.fr/Admin/Uploads/" + hotel.Photo,
+                //URL = "http://form115.dlucazeau.fr/Hotel/Details/" + hotel.IdHotel
+                Image = "http://localhost:57911/Admin/Uploads/"+hotel.Photo,
+                URL = "http://localhost:57911/Hotel/Details/"+hotel.IdHotel
             };
             //var retour2 = new HotelsApiModel
             //{
