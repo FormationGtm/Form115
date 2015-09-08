@@ -154,8 +154,14 @@ namespace Form115.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
+                
+                
+
                 if (result.Succeeded)
                 {
+                    var db = new Form115Entities();
+                    var idtt = new Utilisateurs { Nom = model.Nom, Prenom = model.Prenom, InscritLettreInfo = model.Reponse, IdAspNetUsers = user.Id };
+                    db.Utilisateurs.Add(idtt);
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // Pour plus d'informations sur l'activation de la confirmation du compte et la réinitialisation du mot de passe, consultez http://go.microsoft.com/fwlink/?LinkID=320771
@@ -164,6 +170,7 @@ namespace Form115.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirmez votre compte", "Confirmez votre compte en cliquant <a href=\"" + callbackUrl + "\">ici</a>");
 
+                    db.SaveChanges();
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
@@ -177,7 +184,7 @@ namespace Form115.Controllers
         //[AllowAnonymous]
         //public async Task<ActionResult> RegisterUtilsateursFromBDD()
         //{
-        //    var db = new Form115Entities();
+         
         //    var list = db.Utilisateurs.Where(u => u.IdAspNetUsers == null).ToList();
 
         //    var pwd = "P@ssw0rd";

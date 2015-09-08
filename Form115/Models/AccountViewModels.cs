@@ -65,9 +65,23 @@ namespace Form115.Models
     public class RegisterViewModel
     {
         [Required]
+        [StringLength(60, ErrorMessage = "La chaîne {0} doit comporter au plus {1} caractères.")]
+        [Display(Name = "Nom")]
+        public string Nom { get; set; }
+
+        [Required]
+        [StringLength(60, ErrorMessage = "La chaîne {0} doit comporter au plus {1} caractères.")]
+        [Display(Name = "Prénom")]
+        public string Prenom { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Courrier électronique")]
         public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "Je souhaite recevoir votre newsletter")]
+        public bool Reponse { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "La chaîne {0} doit comporter au moins {2} caractères.", MinimumLength = 6)]
