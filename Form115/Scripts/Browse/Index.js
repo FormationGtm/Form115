@@ -27,7 +27,7 @@ function updateSearchResultpartialViews(data) {
         $('#partial_view_search_result' + idx).find('h3.nom').html(obj.hotel.nom);
         $('#partial_view_search_result' + idx).find('p.ville').html(obj.hotel.ville);
         $('#partial_view_search_result' + idx).find('p.categorie').html(obj.hotel.categorie + '*');
-        $('#partial_view_search_result' + idx).find('img.img-thumbnail').attr('src', "Areas/Admin/Uploads/" + obj.hotel.photo);
+        $('#partial_view_search_result' + idx).find('img.img-thumbnail').attr('src', "/Areas/Admin/Uploads/" + obj.hotel.photo);
         $('#partial_view_search_result' + idx).find('a.id').prop('href', '/Hotel/Details/' + obj.hotel.id + '?nav=Browse');
 
         // Données des produits
