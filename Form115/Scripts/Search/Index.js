@@ -224,9 +224,15 @@ function loadPreviousSearchParams() {
     if (typeof PrixMaxi !== "undefined") {
         $("#PrixMaxi").val(PrixMaxi);
     }
-    if (typeof NbPers !== "undefined") {
-        $("#NbPers").val(NbPers);
+    if (typeof NbPers === "undefined") {
+        $("#NbPers").val(1).change();
+        //$("#NbPers").find(":selected").val(1);
     }
+    else {
+        $("#NbPers").val(NbPers).change();;
+        //$("#NbPers").find(":selected").val(NbPers);
+    }
+}
     //if (typeof Categories !== "undefined") {
     //    $("input[name=Categorie]:checked").val(Categories.split(","));
     //}

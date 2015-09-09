@@ -42,7 +42,9 @@ namespace Form115.Controllers
             HotelViewModel hvm = new HotelViewModel
             {
                 IdHotel = id,
-                DisponibiliteMax = _db.Produits.Select(p => p.NbPlaces).Max(),
+                DisponibiliteMax = _db.Produits.Where(p => p.Sejours.Hotels.IdHotel == id)
+                                                .Select(p => (p.NbPlaces - (p.Reservations.Count() != 0 ? p.Reservations.Sum(r => r.Quantity) : 0)))
+                                                .Max(),
                 Nav = nav
             };
             return View(hvm);
@@ -52,13 +54,15 @@ namespace Form115.Controllers
         public ActionResult DetailsPeriode(int id, string startDate, string endDate)
         {
             //Form115Entities db = new Form115Entities();
-            //Hotels hotel = db.Hotels.Where(h => h.IdHotel == id).First();
+            //Hotels hotel = _db.Hotels.Where(h => h.IdHotel == id).First();
             HotelViewModel hvm = new HotelViewModel
             {
                 IdHotel = id,
                 DateDebut = startDate,
                 DateFin = endDate,
-                DisponibiliteMax = _db.Produits.Select(p => p.NbPlaces).Max()
+                DisponibiliteMax = _db.Produits.Where(p => p.Sejours.Hotels.IdHotel == id)
+                                                .Select(p => (p.NbPlaces - (p.Reservations.Count() != 0 ? p.Reservations.Sum(r => r.Quantity) : 0)))
+                                                .Max()
             };
             return View("Details", hvm);
         }
@@ -109,15 +113,19 @@ namespace Form115.Controllers
 
             // HACK AsEnumerable avant le select ? Sinon ATTENTION, le nb_restants ne sera
             // pas à jour pour les prouits n'ayant pas de réservation, nécessite opérateur ternaire poutr jointure externe
-            var result = s.GetResult().AsEnumerable().Select(p => new {
-                                date = p.DateDepart.ToString("dd/MM/yyyy"), 
-                                duree = p.Sejours.Duree,
-                                prix = p.Prix, 
-                                promotions = p.Promotion,
-                                prixSolde = p.PrixSolde,
-                                nb_restants = p.NbPlaces - p.Reservations.Sum(r => r.Quantity),
-                                sejour =p.IdProduit
-                            });
+            // TODO : decorator pour l'hôtelk afin de le placer en premier
+            var result = s.GetResult().Where(p => p.Sejours.Hotels.IdHotel == hvm.IdHotel)
+                                       .AsEnumerable()
+                                       .Select(p => new {
+                                                            date = p.DateDepart.ToString("dd/MM/yyyy"), 
+                                                            duree = p.Sejours.Duree,
+                                                            prix = p.Prix, 
+                                                            promotions = p.Promotion,
+                                                            prixSolde = p.PrixSolde,
+                                                            nb_restants = p.NbPlaces - p.Reservations.Sum(r => r.Quantity),
+                                                            sejour =p.IdProduit
+                                                        }
+                                        );
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 

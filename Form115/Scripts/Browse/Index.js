@@ -5,6 +5,8 @@
         
     });
     resizePartialViews();
+
+    $('#partial_view_search_result1').clone().appendTo($("#hidden_partial_view")).attr('id', 'partial_view_search_result');
 });
 
 function resizePartialViews() {
@@ -16,19 +18,17 @@ function resizePartialViews() {
 }
 
 
-function updateSearchResultpartialViews(data) {    
+function updateSearchResultpartialViews(data) {
+    $("#partial_views").html('');
     $.each(data, function (idx, obj) {
+        $('#partial_view_search_result').clone().appendTo($("#partial_views")).attr('id', 'partial_view_search_result' + idx)
 
-        //if ($('#partial_view_search_result' + idx).length == 0)
-        //{
-        //    $('#partial_view_search_result1').clone().class('#partial_view_search_result' + idx)
-        //}
         // Données de l'hotel
         $('#partial_view_search_result' + idx).find('h3.nom').html(obj.hotel.nom);
         $('#partial_view_search_result' + idx).find('p.ville').html(obj.hotel.ville);
         $('#partial_view_search_result' + idx).find('p.categorie').html(obj.hotel.categorie + '*');
         $('#partial_view_search_result' + idx).find('img.img-thumbnail').attr('src', "Areas/Admin/Uploads/" + obj.hotel.photo);
-        $('#partial_view_search_result' + idx).find('a.id').prop('href', '/Hotel/Details/' + obj.hotel.id)
+        $('#partial_view_search_result' + idx).find('a.id').prop('href', '/Hotel/Details/' + obj.hotel.id + '?nav=Browse');
 
         // Données des produits
         var nbLignes = parseInt($('#nbProduitsAffiches').html());
@@ -95,6 +95,7 @@ function onSelectPays(idPays, nomPays) {
     $("#BreadCrumb").html('Parcourir le catalogue >> <a href="Browse" id="Continents">Continents</a> >> <a href="#" id="Continent">' + $("#Continent").html() + '</a> >> <a href="#" id="Region">' + $("#Region").html() + '</a> >> <span href="#" id="Pays">' + nomPays + '</span> ');
     $('#Continent').data('id', IdContinent);
     $('#Region').data('id', IdRegion);
+    $('#Pays').data('id', idPays);
     $("#Continent").click(function () {
         onSelectContinent(IdContinent, $("#Continent").html());
     });
@@ -104,6 +105,37 @@ function onSelectPays(idPays, nomPays) {
 
     // Vues partielles adaptées au Pays
     $.getJSON('/Browse/GetJsonBestHotels/?continent=1&region=0&Pays=' + idPays + '&ville=0', function (data) {
+        updateSearchResultpartialViews(data);
+        resizePartialViews();
+    });
+}
+
+function onSelectVille(idVille, nomVille) {
+
+    // loadVilles(idVille);
+    $("#listeChoix").html('');
+    $("#texteChoix").html("Hôtels disponibles");
+
+    IdContinent = $('#Continent').data('id');
+    IdRegion = $('#Region').data('id');
+    IdPays = $('#Pays').data('id');
+    $("#BreadCrumb").html('Parcourir le catalogue >> <a href="Browse" id="Continents">Continents</a> >> <a href="#" id="Continent">' + $("#Continent").html() + '</a> >> <a href="#" id="Region">' + $("#Region").html() + '</a> >> <a href="#" id="Pays">' + $("#Pays").html() + '</a> >> <span href="#" id="Ville">' + nomVille + '</span> ');
+    $('#Continent').data('id', IdContinent);
+    $('#Region').data('id', IdRegion);
+    $('#Pays').data('id', IdPays);
+    $('#Ville').data('id', idVille);
+    $("#Continent").click(function () {
+        onSelectContinent(IdContinent, $("#Continent").html());
+    });
+    $("#Region").click(function () {
+        onSelectRegion(IdRegion, $("#Region").html())
+    });
+    $("#Pays").click(function () {
+        onSelectPays(IdPays, $("#Pays").html())
+    });
+
+    // Vues partielles adaptées au Pays
+    $.getJSON('/Browse/GetJsonHotels/?continent=1&region=0&Ville=' + idVille, function (data) {
         updateSearchResultpartialViews(data);
         resizePartialViews();
     });
@@ -155,10 +187,13 @@ function loadVilles(IdPays) {
         $.getJSON("/Browse/GetJSONVilles/" + IdPays, function (data) {
 
             $.each(data, function (idx, ville) {
-                str += '<li><a class="Villes btn-info li-browse" href="/Search/Result/' + ville.Id + '">' + ville.Nom + '</a></li>';
+                str += '<li><a class="Villes btn-info li-browse" href="#" id="' + ville.Id + '">' + ville.Nom + '</a></li>'; //href="/Search/Result/' 
             });
 
             $("#listeChoix").html(str);
+            $("a.Villes").click(function () {
+                onSelectVille($(this).prop("id"), $(this).html());
+            });
         });
     }
 }

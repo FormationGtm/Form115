@@ -89,9 +89,24 @@ textarea {
 .btn-info{
     background-color: #66A3C2;
     font-size: large;
+    border: none;
 }
 
-.btn-info:hover{
+.btn-info:hover, .btn-info:focus, .btn-info.focus{
+	background-color: #3e6376;
+    color: #e6b87b;
+    text-decoration: none;
+    cursor:pointer;
+}
+
+
+button.btn-info{
+    background-color: #66A3C2;
+    font-size: large;
+    -webkit-appearance: none;
+}
+
+button.btn-info:hover{
 	background-color: #3e6376;
     color: #e6b87b;
     text-decoration: none;

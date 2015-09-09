@@ -18,14 +18,19 @@
         <li><a class="Continents btn-info li-browse" href="#" id="@continent.Key">@continent.Value</a></li>
     }
 </ul>
-@{
-    int cpt = 0;
-    foreach (var item in ViewBag.BestHotels)
-    {
-        <text><div class="col-sm-6" id="@String.Format("partial_view_search_result{0}",cpt)">
+<div id="partial_views">
+    @{
+        int cpt = 0;
+        foreach (var item in ViewBag.BestHotels)
+        {
+            <text><div class="col-sm-6" id="@String.Format("partial_view_search_result{0}",cpt)">
 
-    @Html.Action("PartialSearchResult", "Search", new {srpvi = item })
-</div></text>
-        cpt++;
+                    @Html.Action("PartialSearchResult", "Search", new { srpvi = item })
+                </div></text>
+            cpt++;
+        }
     }
-}
+</div>
+<div id="hidden_partial_view" hidden>
+    @*partial view clonée par js*@
+</div>

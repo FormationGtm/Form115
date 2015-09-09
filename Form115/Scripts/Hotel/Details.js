@@ -117,8 +117,13 @@ function loadSearchParams() {
     if (typeof PrixMaxi !== "undefined") {
         $("#PrixMaxi").val(PrixMaxi);
     }
-    if (typeof NbPers !== "undefined") {
+    if (typeof NbPers === "undefined") {
+        $("#NbPers").find(":selected").val(1);
+        $("#NbPers").val(1);
+    }
+    else {
         $("#NbPers").val(NbPers);
+        $("#NbPers").find(":selected").val(NbPers);
     }
 }
 
