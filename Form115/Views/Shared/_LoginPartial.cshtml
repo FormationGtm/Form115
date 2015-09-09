@@ -1,43 +1,39 @@
 ﻿@using DataLayer.Models
-    @using Microsoft.AspNet.Identity
+@using Microsoft.AspNet.Identity
 
 
-    @if (Request.IsAuthenticated)
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
-        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-        {
-            @Html.AntiForgeryToken()
+        @Html.AntiForgeryToken()
 
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    @Html.ActionLink("Bonjour " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", id = "lienCompte" })
-                </li>
-                @{var idAspNetUser = User.Identity.GetUserId() ;
-                  var utilisateur = (new Form115Entities()).Utilisateurs.Where(u => u.IdAspNetUsers == idAspNetUser).FirstOrDefault();}
-                @if (utilisateur.EstClient)
-                {
-                    <li>
-                        <span class="promo_haut_droite">Avantage fidélité : -@utilisateur.getReducBase()% sur votre prochain voyage !</span>
-                    </li>
-                }
-                @if (utilisateur.EstAdmin) {
-                    <li>
-                        <span class="promo_haut_droite"><a href="/Admin/Home/Index">Admin</a></span>
-                    </li>
-                }
-                else
-                {
-                    <li>
-                        <span class="promo_haut_droite">(Aucune promotion pour vous.)</span>                    </li>
-                }
-                <li><a href="javascript:document.getElementById('logoutForm').submit()">Se déconnecter</a></li>
-            </ul>
-        }
-    }
-    else
-    {
         <ul class="nav navbar-nav navbar-right">
-            <li>@Html.ActionLink("S’inscrire", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-            <li>@Html.ActionLink("Se connecter", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+            <li>
+                @Html.ActionLink("Bonjour " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", id = "lienCompte" })
+            </li>
+            @{var idAspNetUser = User.Identity.GetUserId();
+            var utilisateur = (new Form115Entities()).Utilisateurs.Where(u => u.IdAspNetUsers == idAspNetUser).FirstOrDefault();}
+            @if (utilisateur.EstAdmin)
+            {
+                <li>
+                    <span class="promo_haut_droite"><a href="/Admin/Home/Index">Admin</a></span>
+                </li>
+            }
+            else if (utilisateur.EstClient)
+            {
+                <li>
+                    <span class="promo_haut_droite">Avantage fidélité : -@utilisateur.getReducBase()% sur votre prochain voyage !</span>
+                </li>
+            }
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Se déconnecter</a></li>
         </ul>
     }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("S’inscrire", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Se connecter", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}
