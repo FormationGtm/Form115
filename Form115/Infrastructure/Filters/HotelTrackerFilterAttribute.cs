@@ -14,10 +14,7 @@ namespace Form115.Infrastructure.Filters
         {
             var db = new Form115Entities();
 
-            // Accès au paramètre : id vaut IdHotel
             var ap = filterContext.ActionParameters.First();
-            // var parmName = ap.Key // normalement id
-            // var paramValue = (int)ap.Value;
 
             var ht = new HotelTracking
             {
