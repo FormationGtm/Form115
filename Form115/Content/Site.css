@@ -54,6 +54,10 @@ textarea {
     display: block;
 }
 
+.promo_haut_droite a {
+    color:red    
+}
+
 .arriereplan2 {
     background-color: #CD8F14;
     background-position: inherit;
