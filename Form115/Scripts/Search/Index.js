@@ -224,7 +224,7 @@ function loadPreviousSearchParams() {
     if (typeof PrixMaxi !== "undefined") {
         $("#PrixMaxi").val(PrixMaxi);
     }
-    if (typeof NbPers === "undefined") {
+    if (NbPers === null) {
         $("#NbPers").val(1).change();
         //$("#NbPers").find(":selected").val(1);
     }
