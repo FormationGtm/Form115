@@ -230,11 +230,6 @@ function loadPreviousSearchParams() {
     }
     else {
         $("#NbPers").val(NbPers).change();;
-        //$("#NbPers").find(":selected").val(NbPers);
+       //  $("#NbPers").find(":selected").val(NbPers);
     }
-}
-    //if (typeof Categories !== "undefined") {
-    //    $("input[name=Categorie]:checked").val(Categories.split(","));
-    //}
-
 }
